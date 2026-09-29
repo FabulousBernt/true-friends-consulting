@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0a0a0a">
+    <!-- TODO: customise the page title per case (e.g. "True Friends — Epiroc"). -->
+    <title>True Friends — Avarn</title>
+    <!-- TODO: customise the description per case. -->
+    <meta name="description" content="True Friends reference case — Avarn Security. Short summary of the engagement, role and outcome.">
+
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self'; connect-src 'self' https://formsubmit.co; img-src 'self' data:; form-action 'self' https://formsubmit.co; base-uri 'self'; object-src 'none';">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta name="robots" content="index,follow">
+
+    <link rel="icon" type="image/svg+xml" href="../../img/tf-pc-favicon.svg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&display=swap">
+
+    <link rel="stylesheet" href="../../css/tokens.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/components.css?v=2">
+    <link rel="stylesheet" href="../../css/layout.css">
+    <!-- Blocking on purpose: decides before first paint whether the
+         English markup is about to be translated. See the file. -->
+    <script src="../../js/lang-boot.js"></script>
+</head>
+<body>
+
+
+<svg class="tf-svg-sprite" aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
+  <defs>
+    <symbol id="icon-linkedin" viewBox="0 0 24 24"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.05-1.86-3.05-1.86 0-2.14 1.45-2.14 2.95v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.86 3.38-1.86 3.61 0 4.27 2.38 4.27 5.47v6.28zM5.34 7.43a2.06 2.06 0 110-4.12 2.06 2.06 0 010 4.12zM7.11 20.45H3.56V9h3.55v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45C23.21 24 24 23.23 24 22.28V1.72C24 .77 23.21 0 22.22 0z"/></symbol>
+    <symbol id="icon-instagram" viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zM12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.34 4.14.63c-.79.31-1.46.72-2.13 1.38C1.35 2.68.94 3.35.63 4.14.34 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.27 2.15.56 2.91.31.79.72 1.46 1.38 2.13.67.67 1.34 1.07 2.13 1.38.76.29 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.27 2.91-.56.79-.31 1.46-.72 2.13-1.38.67-.67 1.07-1.34 1.38-2.13.29-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.27-2.15-.56-2.91-.31-.79-.72-1.46-1.38-2.13C21.32 1.35 20.65.94 19.86.63 19.1.34 18.22.13 16.95.07 15.67.01 15.26 0 12 0zm0 5.84a6.16 6.16 0 100 12.32 6.16 6.16 0 000-12.32zm0 10.16a4 4 0 110-8 4 4 0 010 8zm6.41-10.4a1.44 1.44 0 100-2.88 1.44 1.44 0 000 2.88z"/></symbol>
+    <symbol id="icon-youtube" viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 00-2.1-2.12C19.6 3.6 12 3.6 12 3.6s-7.6 0-9.4.48A3 3 0 00.5 6.2 31.3 31.3 0 000 12a31.3 31.3 0 00.5 5.8 3 3 0 002.1 2.12C4.4 20.4 12 20.4 12 20.4s7.6 0 9.4-.48a3 3 0 002.1-2.12A31.3 31.3 0 0024 12a31.3 31.3 0 00-.5-5.8zM9.6 15.6V8.4l6.24 3.6-6.24 3.6z"/></symbol>
+  </defs>
+</svg>
+<a href="#main" class="sr-only" data-i18n="aria.skip">Skip to content</a>
+
+<header class="nav" id="site-nav" data-open="false">
+    <div class="nav__inner">
+        <div class="nav__crumbs">
+            <a href="../../index.html" class="nav__brand" aria-label="True Friends home" data-i18n-aria-label="aria.home">
+                <img class="nav__brand-logo" src="../../img/tf-pc-logo-transparent.svg" alt=""
+                     width="1955" height="1491" decoding="async">
+                <img class="nav__brand-logo nav__brand-logo--hover" src="../../img/tf-pc-logo-yellow-transparent.svg" alt=""
+                     width="1955" height="1491" decoding="async" aria-hidden="true">
+            </a>
+            <span class="nav__crumb-sep" aria-hidden="true">/</span>
+            <a href="../../" class="nav__crumb-link" data-i18n="hero.consulting">Consulting</a>
+            <span class="nav__crumb-sep" aria-hidden="true">/</span>
+            <!-- TODO: swap the consultant name + data-i18n key if the case is by a different consultant. -->
+            <a href="../../#team" class="nav__crumb-link" data-i18n="team.members.johnny.name">Johnny Vigersten</a>
+            <span class="nav__crumb-sep" aria-hidden="true">/</span>
+            <!-- TODO: replace with the case name, e.g. "Epiroc". -->
+            <span class="nav__crumb-current" aria-current="page">Avarn</span>
+        </div>
+
+        <nav class="nav__links" aria-label="Primary" data-i18n-aria-label="aria.primary">
+            <a class="nav__link" href="../../#top" data-i18n="nav.start">Start</a>
+            <a class="nav__link" href="../../#about" data-i18n="nav.about">About</a>
+            <a class="nav__link" href="../../#services" data-i18n="nav.services">Services</a>
+            <a class="nav__link" href="../../#team" data-i18n="nav.team">Consultants</a>
+            <a class="nav__link" href="../../#contact" data-i18n="nav.contact">Contact</a>
+        </nav>
+
+        <div class="nav__right">
+            <a class="nav__era" href="https://truefriends.se/1996/"><span data-i18n="era.classic">TF 1996</span> <span class="nav__era-tail" data-i18n="era.classicTail">website</span></a>
+
+            <div class="nav__socials" aria-label="Social links" data-i18n-aria-label="aria.socialLinks">
+                <a class="social" data-href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn" aria-disabled="true">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#icon-linkedin"/></svg>
+                </a>
+                <a class="social" data-href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram" aria-disabled="true">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#icon-instagram"/></svg>
+                </a>
+                <a class="social" data-href="https://www.youtube.com/" target="_blank" rel="noopener" aria-label="YouTube" aria-disabled="true">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#icon-youtube"/></svg>
+                </a>
+            </div>
+
+
+            <div class="nav__langs" role="group" aria-label="Switch language" data-i18n-aria-label="aria.langSwitch">
+                <button type="button" class="nav__lang" data-lang="en" aria-pressed="true">EN</button>
+                <span class="nav__lang-divider" aria-hidden="true">/</span>
+                <button type="button" class="nav__lang" data-lang="sv" aria-pressed="false">SV</button>
+            </div>
+
+            <button class="nav__toggle" aria-label="Toggle navigation menu" aria-controls="mobile-drawer" aria-expanded="false" data-i18n-aria-label="aria.mobileMenu">
+                <span class="icon-bar" aria-hidden="true"></span>
+            </button>
+        </div>
+    </div>
+
+    <div class="nav__drawer" id="mobile-drawer">
+        <a class="nav__link" href="../../#top" data-i18n="nav.start">Start</a>
+        <a class="nav__link" href="../../#about" data-i18n="nav.about">About</a>
+        <a class="nav__link" href="../../#services" data-i18n="nav.services">Services</a>
+        <a class="nav__link" href="../../#team" data-i18n="nav.team">Consultants</a>
+        <a class="nav__link" href="../../#contact" data-i18n="nav.contact">Contact</a>
+        <div class="nav__langs nav__langs--drawer" role="group" aria-label="Switch language">
+            <button type="button" class="nav__lang" data-lang="en" aria-pressed="true">EN</button>
+            <span class="nav__lang-divider" aria-hidden="true">/</span>
+            <button type="button" class="nav__lang" data-lang="sv" aria-pressed="false">SV</button>
+        </div>
+        <div class="nav__socials" aria-label="Social links" data-i18n-aria-label="aria.socialLinks">
+            <a class="social" data-href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn" aria-disabled="true">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#icon-linkedin"/></svg>
+            </a>
+            <a class="social" data-href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram" aria-disabled="true">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#icon-instagram"/></svg>
+            </a>
+            <a class="social" data-href="https://www.youtube.com/" target="_blank" rel="noopener" aria-label="YouTube" aria-disabled="true">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#icon-youtube"/></svg>
+            </a>
+        </div>
+    </div>
+</header>
+
+<main id="main">
+    <!-- Hero — blog-post sized. Per-case photo is set via a modifier class
+         (e.g. `hero--epiroc`) defined in css/layout.css. The page CSP blocks
+         inline `style` attributes, so the photo URL has to live in the CSS. -->
+    <section class="hero hero--center hero--blog hero--avarn" id="top">
+        <div class="hero__bg" aria-hidden="true"></div>
+        <div class="hero__photo" aria-hidden="true"></div>
+        <div class="hero__scrim" aria-hidden="true"></div>
+
+        <div class="hero__content">
+            <!-- TODO: swap the logo path + alt to match the case
+                 (e.g. ../../img/reference-cases/<consultant-slug>/<slug>/<slug>-logo.png). -->
+            <h1 class="hero__case-heading">
+                <img class="hero__case-logo" src="../../img/reference-cases/johnny-vigersten/avarn/avarn-logo.webp" alt="Avarn Security">
+            </h1>
+        </div>
+    </section>
+
+    <!--
+      Per-case body copy goes through a per-case translation file, same
+      pattern as the rest of the site. For each new case:
+        1. Create js/translations/<slug>.js by copying an existing case
+           file (epiroc.js / kopparbergs-brewery.js) and swap the slug.
+        2. Add `refCases.<slug>.<section>.<key>` entries under both `en`
+           and `sv` inside that file (body1, body2, ..., caption1, ...).
+        3. Load it in this page's <head> alongside common.js:
+             <script src="../../js/translations/common.js" defer></script>
+             <script src="../../js/translations/<slug>.js" defer></script>
+        4. Reference each entry on the corresponding tag here via
+           `data-i18n="..."` — or `data-i18n-html="..."` if the string
+           contains markup such as <a>.
+      The inline text below is the fallback shown if a key is missing.
+
+      Available content patterns inside any .section__body:
+        • Multiple paragraphs: <p>body1</p><p>body2</p> ...
+        • Lede paragraph: <p class="lede">...</p>
+        • Image with caption: <figure class="section__figure">
+              <img src="..." alt="..." loading="lazy">
+              <figcaption class="section__figure-caption">...</figcaption>
+            </figure>
+        • Two images side by side: wrap two .section__figure blocks in
+            <div class="section__figure-row">...</div>
+        • Muted footnote / disclaimer: <p class="section__note">...</p>
+        • Inline link in a paragraph: use data-i18n-html and embed the
+            <a href="..." target="_blank" rel="noopener">...</a> in the string.
+
+      To add a section other than About / My role / Workflow, follow the same
+      <section class="section" id="<slug>" aria-labelledby="<slug>-label">
+      structure, add `refCase.<key>` for the label and any per-case body keys.
+    -->
+    <section class="section" id="about" aria-labelledby="about-label">
+        <div class="container">
+            <div class="section__terminal">
+                <div class="section__terminal-chrome">
+                    <span class="section__terminal-title" id="about-label" data-i18n="refCase.about">About</span>
+                </div>
+                <div class="section__terminal-body">
+                    <div class="section__body">
+                        <p class="lede" data-i18n="refCases.avarn.about.lede">Avarn Security Group (formerly known as Nokas) reached out to Nethouse while I was working there. They needed a system to help them improve their sales process of alarms and surveillance equipment.</p>
+                        <p data-i18n="refCases.avarn.about.body1">Their sales personnel where equipped with tablets on which they entered sale information and showed customers the equipment. The idea was to use these tablets with a custom built system that streamlined and improve this process.</p>
+                        <p data-i18n="refCases.avarn.about.body2">The system that we built enabled the sales personnel to create new projects for each unique sale. The first step in each project was to add customer information and contact details. The second step  was to take a photograph of the floor plan that sits at the entrance of every commercial building in Sweden. The photograph was then used as the “background” in the new project, the users could search for various equipment and drag and drop them on the floor plan to instantly show the customer where each alarm, camera and other equipment would be mounted and map out the installation.</p>
+                        <p data-i18n="refCases.avarn.about.body3">The system also calculated pricing and materials in real-time, allowing the sales representatives to generate and send very detailed quotations and installation plans directly to customers on the spot. </p>
+                        <p data-i18n="refCases.avarn.about.body4">The sales configurator (as we called it) was also accompanied by a backend system where backend users could add new equipment, upload icons to each item that where used to show the item on the map, add pricing and other material that was needed for each item.</p>
+                        <p data-i18n="refCases.avarn.about.body5">The end result and reception for this system from the users where great. They loved to be able to live-edit the project in front of the customer, which enabled them to discuss and collaborate with the customer about equipment, possibilities and quickly generating a quotation with no lead-time. This kind of visualisation really helped the sales personnel and was very appreciated.</p>
+                        <figure class="section__figure">
+                            <img src="../../img/reference-cases/johnny-vigersten/avarn/tablet.webp" alt="A hand using a stylus on a tablet." loading="lazy">
+                            <figcaption class="section__figure-caption" data-i18n-html="refCases.avarn.about.caption">Image by <a href="https://unsplash.com/@samuelbryngelsson" target="_blank" rel="noopener">samuelbryngelsson</a></figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="my-role" aria-labelledby="my-role-label">
+        <div class="container">
+            <div class="section__terminal">
+                <div class="section__terminal-chrome">
+                    <span class="section__terminal-title" id="my-role-label" data-i18n="refCase.myRole">My role</span>
+                </div>
+                <div class="section__terminal-body">
+                    <div class="section__body">
+                        <p data-i18n="refCases.avarn.myRole.body1">My role in this project was to design the User Experience, User Interface, the components used to build it and lead the testing. The system was branded according to Avarns styling guide.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="workflow" aria-labelledby="workflow-label">
+        <div class="container">
+            <div class="section__terminal">
+                <div class="section__terminal-chrome">
+                    <span class="section__terminal-title" id="workflow-label" data-i18n="refCase.workflow">Workflow</span>
+                </div>
+                <div class="section__terminal-body">
+                    <div class="section__body">
+                        <p data-i18n="refCases.avarn.workflow.body1">As usual in our team we worked iteratively in sprints in this project. We started by meeting and talking to the customer and their users to gain as much understanding about their daily work as possible. This research continued throughout the project when we developed new areas and designed new prototypes to make sure that we where on the right track.</p>
+                        <p data-i18n="refCases.avarn.workflow.body2">The design process was as per usual heavily focused on understanding the user needs, mapping their workflows in user story maps. I iterated quickly on the user flows and the UI design and presented my prototypes to the customer on a regular basis. I also tested my prototypes on them to make sure that they felt the solution was good and actually solved the problems they where having, after this the developers started working on the function, user flow or area that I had designed. </p>
+                        <p data-i18n="refCases.avarn.workflow.body3">The testing process began at the same time as the design process started. By understanding the customer, requirements, technical design set up by the developers, users and their environments as well as the technical devices to be used in order to prioritise the testing efforts. By incorporating testing early in the process we identified risks and worked as proactively as we possible could to minimise these risks that could cause potential problems further down the road.</p>
+                        <p data-i18n="refCases.avarn.workflow.body4">The testing involved functional, backend, frontend, compatibility, hardware, usability, exploratory testing as well as test planning, test strategy and test design. I involved the entire team in testing sessions, ensuring continuous feedback and improvement during each iteration as well as user testing with the customer. I also coached and helped the customer to organise themselves to perform acceptance tests before the delivery of each iteration and the full system.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="site-footer">
+    <p class="site-footer__copyright" data-i18n="footer.copyright">&copy; 2026 True Friends. All rights reserved.</p>
+</footer>
+
+<button type="button" class="back-to-top" id="back-to-top" aria-label="Back to top" data-i18n-aria-label="aria.backToTop" hidden>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="6 15 12 9 18 15"/>
+    </svg>
+</button>
+
+<script src="../../js/translations/common.js" defer></script>
+<script src="../../js/translations/johnny-vigersten/avarn.js" defer></script>
+<script src="../../js/main.js" defer></script>
+</body>
+</html>
