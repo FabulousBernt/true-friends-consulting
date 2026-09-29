@@ -24,11 +24,16 @@ brand/README.md                  what is shared with the other two sites
 ## Checking your work
 
 `tools/i18n.js` keeps the pages and the translation files honest about each
-other. The link checker lives in the archived `true-friends-website` repo:
+other. `tools/check-links.js` resolves every local `href` and `src`, every
+anchor target, and every path-like string in `js/translations/`:
 
 ```sh
-node ../true-friends-website/tools/check-links.js .
+node tools/check-links.js .
 ```
+
+It cannot see paths built in JavaScript — that is how the 1996 gallery was
+missed once already — so a page whose images are injected at runtime still
+needs looking at.
 
 ## History
 

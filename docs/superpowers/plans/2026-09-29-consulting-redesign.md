@@ -79,7 +79,7 @@ assigned to the task that owns the code.
 Existing checker, used throughout:
 
 ```sh
-node ~/repos/true-friends-website/tools/check-links.js ~/repos/true-friends-consulting
+node tools/check-links.js .
 ```
 
 ---
@@ -452,7 +452,7 @@ the `#top` link:
 
 - [ ] **Step 8: Run both checkers**
 
-Run: `node tools/check-i18n.js && node ~/repos/true-friends-website/tools/check-links.js .`
+Run: `node tools/check-i18n.js && node tools/check-links.js .`
 Expected: `i18n OK` with no problems, and the link checker clean. The six index
 rows now resolve to real files.
 
@@ -622,7 +622,7 @@ hero is followed by `#work`, then `#team`.
 
 - [ ] **Step 2: Run the link checker to watch it fail**
 
-Run: `node ~/repos/true-friends-website/tools/check-links.js .`
+Run: `node tools/check-links.js .`
 Expected: FAIL. Sixteen nav blocks across eight files point at `#about` and
 `#services`, and those ids no longer exist:
 
@@ -675,7 +675,7 @@ Read the result of one case page and the template by eye before moving on —
 
 - [ ] **Step 4: Run the link checker to verify it passes**
 
-Run: `node ~/repos/true-friends-website/tools/check-links.js .`
+Run: `node tools/check-links.js .`
 Expected: clean. No `anchor does not` lines.
 
 - [ ] **Step 5: Delete the orphaned strings**
@@ -839,7 +839,7 @@ In `js/translations/consulting.js`, inside `team.members.johnny`, after `role`:
 
 - [ ] **Step 5: Run both checkers**
 
-Run: `node tools/check-i18n.js && node ~/repos/true-friends-website/tools/check-links.js .`
+Run: `node tools/check-i18n.js && node tools/check-links.js .`
 Expected: both clean. The link checker matters here: the deleted `refs` row held
 six links, and their targets must still be reachable — from the work index now.
 
@@ -1093,7 +1093,7 @@ Append to `css/layout.css`, after the `.file-index` block:
 
 - [ ] **Step 7: Run both checkers**
 
-Run: `node tools/check-i18n.js && node ~/repos/true-friends-website/tools/check-links.js .`
+Run: `node tools/check-i18n.js && node tools/check-links.js .`
 Expected: both clean. The i18n checker proves each case page resolves
 `work.cases.<slug>.*` — which only works because those keys live in
 `common.js`, the one dictionary these pages load.
@@ -1328,7 +1328,7 @@ blur — dimming the page behind an open dialog is a different device."
 
 ```sh
 node tools/check-i18n.js
-node ~/repos/true-friends-website/tools/check-links.js .
+node tools/check-links.js .
 ```
 
 Then, by eye, the acceptance criteria from the spec's §8 that no script can

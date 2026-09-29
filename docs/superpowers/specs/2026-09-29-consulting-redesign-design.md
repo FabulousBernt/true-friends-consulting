@@ -398,7 +398,7 @@ The site has no test framework; verification is the link checker plus explicit
 checks a person can repeat.
 
 ```sh
-node ~/repos/true-friends-website/tools/check-links.js ~/repos/true-friends-consulting
+node tools/check-links.js .
 ```
 
 Acceptance criteria:
