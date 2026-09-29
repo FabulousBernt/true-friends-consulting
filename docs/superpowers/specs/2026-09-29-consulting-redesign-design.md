@@ -245,13 +245,32 @@ Every section becomes a window:
 
 ### What is removed
 
-**`backdrop-filter` and the glass tokens go.** `--blur-glass`,
-`--color-glass-tint` and `--color-glass-highlight` are used in `tokens.css`,
-`components.css` and `layout.css`. The frosted surface is the most dated thing
-on the site and it is precisely what made the pixel icons look borrowed from
-somewhere else. Removing it is also the largest single readability win
-available: translucent panels over a photographic hero are the one place on
-this site where text contrast is not actually controlled.
+**The frosted panels go.** The glass tokens — `--blur-glass`,
+`--color-glass-tint`, `--color-glass-highlight` — are declared in `tokens.css`
+and consumed at four places in `layout.css`: the fixed nav over the hero photo,
+`.section__terminal`, its chrome bar, and the service-line hover. Plus a fifth
+frosted surface declared inline in `components.css`, the sticky `.nav` used on
+pages without a hero photo. All five become solid: an opaque ground and a hard
+border.
+
+The frosted surface is the most dated thing on the site and it is precisely
+what made the pixel icons look borrowed from somewhere else. It is also the
+largest readability win available, because a translucent panel over a
+photographic hero is the one place here where text contrast is not actually
+controlled.
+
+**Dialog backdrops are not part of this.** `.modal::backdrop` and
+`.lightbox::backdrop` in `components.css` also use `backdrop-filter`, but they
+blur *the page behind an open dialog*, which is a dimming device rather than a
+panel treatment. They stay. A blanket "remove every `backdrop-filter`" would
+take them with it for no reason.
+
+**`.section__terminal` is modified, not replaced.** It is already a bordered
+box with a titled chrome bar — the window is most of the way built. What
+changes is its fill (opaque), its border (2px), its shadow (hard offset), and
+the pinstripe in the chrome bar. The class names keep saying `terminal`;
+renaming them touches every page on the site and is its own job, as the
+existing comment in `layout.css` already says.
 
 ### The flame budget
 
@@ -392,8 +411,10 @@ Acceptance criteria:
    same inversion as hover; focus is never invisible against the ground.
 4. **No string is English-only.** Toggle to Swedish and read the whole page,
    including the index, the stamp and the case-page metadata.
-5. **`backdrop-filter` appears nowhere** in the three stylesheets, and the nav
-   and contact form still render correctly without it.
+5. **No panel is translucent.** The glass tokens are gone from `tokens.css`
+   and unreferenced; neither nav uses `backdrop-filter`; `.section__terminal`
+   is opaque. `.modal::backdrop` and `.lightbox::backdrop` still blur — they
+   are dimming devices and were never in scope.
 6. **Flame appears exactly twice** on the front page.
 7. **Contrast.** Yellow-on-ink and the inverted ink-on-yellow row both measured,
    not assumed.
