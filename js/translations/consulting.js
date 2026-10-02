@@ -27,22 +27,6 @@ window.TF_ADD_TRANSLATIONS({
       body3:
         "True Friends rests on a foundation of honesty, creativity, responsibility, and commitment. These pillars are essential for our work and our shared success.",
     },
-    services: {
-      items: {
-        testing: {
-          name: "Testing",
-          body: "When testing we like to be involved as early as possible to help identify risks and potential problems long before any code is written. By working both proactively and reactively we can increase our chances of eliminating late and costly problems. We explore, investigate, experiment, and verify the software/product based on requirements, risks and experience to uncover and deliver as much valuable information as possible. We also lead the testing in teams and coach how to approach a quality first mindset.",
-        },
-        uxDesign: {
-          name: "UX Design",
-          body: "By applying a design thinking process, we put ourselves in the environment of your users to understand the root problem. Together with you and your users, we work iteratively with research, wireframes, prototypes, and interface design to create a solution that solves the problems we set out to solve and that are user friendly and accessible.",
-        },
-        uiDesign: {
-          name: "UI Design",
-          body: "Using visual design principles, we design interfaces for systems, websites, and mobile applications that are not only visually appealing but also functional from both a usability and accessibility perspective. We always base our work on WCAG and user feedback to ensure inclusive interfaces.",
-        },
-      },
-    },
     team: {
       label: "Consultants",
       cv: "Download cv",
@@ -52,6 +36,20 @@ window.TF_ADD_TRANSLATIONS({
           bio: "I like exploring and investigating software and solving problems for customers. I advocate usability, security and aesthetics.",
           cvHref: "cv/johnny-vigersten-cv-EN.pdf",
         },
+      },
+    },
+    /* The reference cases, as a table in the consultant card. The sector
+       and role per case were derived from the case prose and are recorded
+       here, one source, so the table and the cases can never disagree. */
+    work: {
+      cols: { client: "client", sector: "sector", role: "role" },
+      cases: {
+        epiroc:      { sector: "Mining equipment",       role: "Tester / Designer" },
+        sectra:      { sector: "Secure communications", role: "Tester / Designer" },
+        bufab:       { sector: "Supply chain", role: "Tester / Designer" },
+        avarn:       { sector: "Security",     role: "Tester / Designer" },
+        skeKraft:    { sector: "Energy & Utilities",       role: "Designer" },
+        kopparbergs: { sector: "Brewery",      role: "Tester / Designer" },
       },
     },
   },
@@ -76,22 +74,6 @@ window.TF_ADD_TRANSLATIONS({
       body3:
         "True Friends vilar på en grund av ärlighet, kreativitet, ansvarstagande och engagemang. Dessa värdeord är avgörande för vårt arbete och vår gemensamma framgång.",
     },
-    services: {
-      items: {
-        testing: {
-          name: "Testning",
-          body: "I testarbetet vill vi vara involverade så tidigt som möjligt för att hjälpa till att identifiera risker och potentiella problem långt innan någon kod skrivs. Genom att arbeta både proaktivt och reaktivt ökar vi chanserna att eliminera sena och kostsamma problem. Vi utforskar, undersöker, experimenterar och verifierar mjukvaran eller produkten utifrån krav, risker och erfarenhet för att ta fram och förmedla så mycket värdefull information som möjligt. Vi leder även testarbetet i team och coachar kring hur man anammar ett kvalitetstänk där kvaliteten sätts i första rummet.",
-        },
-        uxDesign: {
-          name: "UX-Design",
-          body: "Genom att tillämpa en design thinking-process sätter vi oss in i er och era användares miljö för att förstå det grundläggande problemet. Tillsammans med er och era användare arbetar vi iterativt med research, wireframes, prototyper och gränssnittsdesign för att skapa en lösning som åtgärdar de problem vi identifierat och som är användarvänlig och tillgänglig.",
-        },
-        uiDesign: {
-          name: "UI-Design",
-          body: "Genom visuella design principer utformar vi gränssnitt för system, webbplatser och mobilappar som inte bara är visuellt tilltalande, utan även funktionella ur både användbarhets- och tillgänglighetsperspektiv. Vi baserar alltid vårt arbete på WCAG och användarfeedback för att säkerställa inkluderande gränssnitt.",
-        },
-      },
-    },
     team: {
       label: "Konsulter",
       cv: "Ladda ner CV",
@@ -101,6 +83,17 @@ window.TF_ADD_TRANSLATIONS({
           bio: "Jag tycker om att utforska och undersöka mjukvara samt att lösa problem åt mina kunder. Jag förespråkar användbarhet, säkerhet och estetik.",
           cvHref: "cv/johnny-vigersten-cv-SE.pdf",
         },
+      },
+    },
+    work: {
+      cols: { client: "kund", sector: "bransch", role: "roll" },
+      cases: {
+        epiroc:      { sector: "Gruvutrustning",        role: "Testare / Designer" },
+        sectra:      { sector: "Säker kommunikation", role: "Testare / Designer" },
+        bufab:       { sector: "Distribution",        role: "Testare / Designer" },
+        avarn:       { sector: "Säkerhet",            role: "Testare / Designer" },
+        skeKraft:    { sector: "Energi",              role: "Designer" },
+        kopparbergs: { sector: "Bryggeri",            role: "Testare / Designer" },
       },
     },
   },

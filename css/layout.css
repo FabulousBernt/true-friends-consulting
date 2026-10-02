@@ -295,7 +295,7 @@ body:has(.hero--blog) {
    so they read as links, accent yellow on hover / focus. `.btn` is excluded so
    buttons keep their own treatment. Listed selector by selector rather than
    applied to the whole body so structured list/row links (.email-row,
-   .consultant-card__ref, etc.) aren't double-underlined. */
+   .consultant-card__table-row, etc.) aren't double-underlined. */
 .section__body p a:not(.btn),
 .section__figure-caption a:not(.btn) {
   text-decoration: underline;
@@ -485,78 +485,6 @@ body:has(.hero--blog) {
 
 .gallery-listing .gallery__tile::after { content: none; }
 
-/* ---------- Service list (package-list style) ----------
-   Each service renders as an expandable row: `[+] name  brief-summary`.
-   Clicking the row swaps [+] for [-] and reveals the longer body copy
-   beneath, aligned to the name column. Uses native <details>/<summary>
-   so no JS. */
-.service-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.service-list > li + li {
-  border-top: 1px solid var(--color-border);
-}
-
-.service-line {
-  font-family: var(--font-body);
-  font-size: clamp(0.9375rem, 1.1vw, 1.0625rem);
-  line-height: 1.5;
-  color: var(--color-text);
-}
-
-.service-line__summary {
-  display: grid;
-  grid-template-columns: 24px 1fr auto;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 1.25rem 0.25rem;
-  cursor: pointer;
-  list-style: none;
-  transition: background-color var(--duration-fast) var(--ease-out);
-}
-
-.service-line__summary::-webkit-details-marker { display: none; }
-.service-line__summary::marker { content: ""; }
-
-.service-line__summary:hover {
-  background: var(--color-glass-highlight);
-}
-
-.service-line__icon {
-  width: 24px;
-  height: 24px;
-  display: block;
-}
-
-.service-line__name {
-  color: var(--color-cream);
-  font-weight: 700;
-  font-size: 24px;
-  line-height: var(--lh-snug);
-}
-
-.service-line__toggle {
-  justify-self: end;
-  color: var(--color-accent);
-  font-weight: 700;
-}
-
-.service-line__toggle::before { content: "[+]"; }
-.service-line[open] > .service-line__summary .service-line__toggle::before { content: "[-]"; }
-
-.service-line__body {
-  padding: 0.25rem 0.25rem 1rem calc(24px + 0.75rem + 0.25rem);
-  color: var(--color-text);
-}
-
-.service-line__body > p { margin: 0; }
-
 /* ---------- Consultant card (portrait + key/value profile) ----------
    Photo left, dl-style metadata right. Keys in accent yellow, values in
    cream. Reads like `id` / `whoami` output next to the portrait. */
@@ -623,9 +551,10 @@ body:has(.hero--blog) {
 }
 
 .consultant-card__key {
-  color: var(--color-accent);
-  font-weight: 700;
-  letter-spacing: 0.02em;
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
 }
 
 .consultant-card__val {
@@ -639,30 +568,88 @@ body:has(.hero--blog) {
   font-size: 1.25rem;
 }
 
-.consultant-card__ref {
-  color: var(--color-cream);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  transition: color var(--duration-base) var(--ease-out);
+/* Reference cases, as a table in the consultant card. The whole row is a
+   link; hover and focus invert it the way a selected line inverts in a
+   system file manager. A list of links laid out as a grid rather than a
+   <table>, so a screen reader hears one link per case ("Epiroc, Mining,
+   Design lead and Test") instead of nine cells. */
+.consultant-card__table-head,
+.consultant-card__table-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr) minmax(0, 1.25fr);
+  gap: clamp(0.5rem, 2vw, 1.25rem);
+  align-items: baseline;
+  padding: 0.7rem 0.875rem;
 }
 
-.consultant-card__ref:not([aria-disabled="true"]):hover,
-.consultant-card__ref:not([aria-disabled="true"]):focus-visible {
-  color: var(--color-accent);
+/* Headers are decoration for sighted readers: each row link already
+   carries the accessible name, so they are aria-hidden. */
+.consultant-card__table-head {
+  font-size: var(--fs-small);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  border-bottom: 1px solid var(--color-border);
 }
 
-/* Reference cases are disabled until the case pages are finished — the client
-   names stay readable, but drop the underline so they don't read as links. */
-.consultant-card__ref[aria-disabled="true"] {
-  opacity: 0.5;
-  cursor: not-allowed;
+.consultant-card__table {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* The card is a two-column grid at wide widths (portrait + info). Both the
+   header and the table must span the full width, below the portrait row —
+   without this, auto-placement drops the header into the narrow portrait
+   column, beside the table instead of above it. */
+.consultant-card__table-head,
+.consultant-card__table {
+  grid-column: 1 / -1;
+}
+
+.consultant-card__table-row {
+  font-size: var(--fs-small);
+  color: var(--color-text);
   text-decoration: none;
+  border-bottom: 1px solid var(--color-border-subtle);
+  transition: background-color var(--duration-fast) var(--ease-out),
+              color var(--duration-fast) var(--ease-out);
 }
 
-.consultant-card__ref-sep {
-  color: var(--color-text-subtle);
-  margin: 0 0.15rem;
-  user-select: none;
+.consultant-card__table-client {
+  font-weight: 700;
+  color: var(--color-cream);
+}
+
+/* Selection. Every descendant colour is restated: cream and muted are
+   unreadable on yellow, so the whole row goes to ink together. */
+.consultant-card__table-row:hover,
+.consultant-card__table-row:focus-visible {
+  background: var(--color-accent);
+}
+
+.consultant-card__table-row:hover :is(.consultant-card__table-client, .consultant-card__table-sector, .consultant-card__table-role),
+.consultant-card__table-row:focus-visible :is(.consultant-card__table-client, .consultant-card__table-sector, .consultant-card__table-role) {
+  color: var(--color-accent-ink);
+}
+
+/* The inversion alone is a colour-only cue. The inset rule is the actual
+   focus indicator and reads as a selection rectangle. */
+.consultant-card__table-row:focus-visible {
+  outline: 2px solid var(--color-accent-ink);
+  outline-offset: -4px;
+}
+
+/* Under 600px three columns cannot be read. The row stacks: client as the
+   line that carries the weight, sector and role beneath it. */
+@media (max-width: 600px) {
+  .consultant-card__table-head { display: none; }
+
+  .consultant-card__table-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.15rem;
+    padding: 0.8rem 0.875rem;
+  }
 }
 
 /* CV link — hyperlink treatment with a leading download-arrow icon so the
