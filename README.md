@@ -25,14 +25,19 @@ brand/README.md                  what is shared with the other two sites
 
 `tools/i18n.js` keeps the pages and the translation files honest about each
 other. `tools/check-links.js` resolves every local `href` and `src`, every
-anchor target, and every path-like string in `js/translations/`:
+anchor target, every `url()` in CSS, and every path-like string in
+`js/translations/`:
 
 ```sh
 node tools/check-links.js .
 ```
 
-It cannot see paths built in JavaScript — that is how the 1996 gallery was
-missed once already — so a page whose images are injected at runtime still
+The CSS pass covers the per-page hero photos, which are set through a
+`--hero-photo-url` custom property rather than markup — before it existed, a
+typo there rendered a bare gradient and failed no check.
+
+It still cannot see paths built in JavaScript — that is how the 1996 gallery
+was missed once already — so a page whose images are injected at runtime still
 needs looking at.
 
 ## History

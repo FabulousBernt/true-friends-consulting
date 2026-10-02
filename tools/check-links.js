@@ -1,12 +1,13 @@
 #!/usr/bin/env node
 /* Verifies every local reference in a site tree resolves to a real file.
  *
- * Covers three classes the split can break:
+ * Covers four classes the split can break:
  *   - href/src in HTML, including pages nested two levels deep
  *   - anchor targets (#id) on same-tree pages, because a file can exist
  *     while the anchor on it does not
  *   - path-like strings inside js/translations/, where the wordmark and
  *     CV paths live and which no HTML scan would ever see
+ *   - url() inside CSS, where the per-page hero photo lives
  */
 const fs = require('fs');
 const path = require('path');
@@ -86,6 +87,23 @@ for (const f of files.filter(f => f.includes(path.sep + 'translations' + path.se
     const abs = path.resolve(root, m[1]);
     checked++;
     if (!fs.existsSync(abs)) report(f, m[1], 'referenced from translation data');
+  }
+}
+
+/* Paths that live in CSS rather than markup — the hero photos. Every page sets
+   its background through a `--hero-photo-url` custom property in layout.css, so
+   a typo there renders a bare gradient on one page and fails no HTML scan. The
+   `url("../img/...")` is relative to the stylesheet, not the site root, so these
+   resolve from path.dirname(f) like an <img src> does. Data URIs and bare
+   `none` fallbacks are skipped. */
+for (const f of files.filter(f => f.endsWith('.css'))) {
+  const src = fs.readFileSync(f, 'utf8');
+  for (const m of src.matchAll(/url\(\s*["']?([^"')]+)["']?\s*\)/g)) {
+    const ref = m[1];
+    if (/^(?:https?:|data:|\/\/|#|\s*$)/.test(ref)) continue;
+    const abs = path.resolve(path.dirname(f), ref.split('?')[0]);
+    checked++;
+    if (!fs.existsSync(abs)) report(f, ref, 'referenced from CSS url()');
   }
 }
 

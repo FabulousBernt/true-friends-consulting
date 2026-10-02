@@ -115,13 +115,34 @@ the divergence rather than leaving the next person to rediscover it.
 ## Verification
 
 `tools/check-links.js` scans HTML `href`/`src` and path-like strings in
-`js/translations/`. It never parses CSS `url()`, which is where the hero photo
-path lives — so a typo there would pass the only automated test in the repo. The
-checker gains a CSS `url()` pass mirroring the translations one, and the run
-must report more references checked than its `236` baseline with `0` broken.
+`js/translations/`. It never parsed CSS `url()`, which is where the hero photo
+path lives — so a typo there would pass the only automated test in the repo.
+The checker gains a CSS `url()` pass mirroring the translations one.
+
+Turning it on immediately reported **four references that were already broken**,
+all dead code inherited from the repo split. They are fixed rather than
+suppressed, because a checker that ships red is worse than no checker:
+
+| where | pointed at | why it was dead |
+|---|---|---|
+| `css/layout.css:22` | `img/studio-hero-bg.webp` | the `.hero` base default; every page sets a modifier, and this repo has no studio page |
+| `css/layout.css:198` | `img/landing-page-hero.webp` | `body.landing`, a class no page in this repo carries |
+| `css/components.css:679,724` | `img/gallery/placeholder.svg` | the 1996 gallery lightbox empty states; no `img/gallery/` directory and no gallery markup |
+
+The two hero declarations are removed outright — `.hero__photo` already reads
+`var(--hero-photo-url, none)`, so a photo-less hero shows the gradient rather
+than a 404, and every `.hero` on every page carries a modifier so nothing
+loses its photo. The two gallery `url()` layers are dropped, leaving
+`background: var(--color-surface)`. The inert remainder of the `body.landing`
+block is left in place; removing dead CSS wholesale is not this change's job.
+
+Verified by breaking the hero path on purpose: the new pass reports it.
+
+The run reports **243 references checked, 0 broken**, up from the 236 baseline.
 
 Also checked by hand:
 
 - `rg -i 'fee440|e6cf3a|254, ?228, ?64' css/` returns nothing
 - `cwebp` decode/re-encode byte-identity on both landed files
+- braces balanced across all four stylesheets
 - `python3 -m http.server 8801` and look at it

@@ -674,9 +674,7 @@ body:has(dialog[open]) { overflow: hidden; }
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
-  background:
-    var(--color-surface)
-    url("../img/gallery/placeholder.svg") center / 96px no-repeat;
+  background: var(--color-surface);
 }
 
 .lightbox__caption {
@@ -719,9 +717,7 @@ body:has(dialog[open]) { overflow: hidden; }
   height: 64px;
   padding: 0;
   border: 2px solid transparent;
-  background:
-    var(--color-surface)
-    url("../img/gallery/placeholder.svg") center / 28px no-repeat;
+  background: var(--color-surface);
   cursor: pointer;
   opacity: 0.6;
   transition:

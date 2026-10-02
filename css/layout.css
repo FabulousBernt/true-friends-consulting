@@ -9,6 +9,11 @@
 }
 
 /* ---------- Hero ---------- */
+/* No --hero-photo-url on the base. Every page using `.hero` also uses a
+   modifier that sets one (.hero--consulting, .hero--<case>), and the old
+   base default pointed at the studio photo, which this repo does not have.
+   `.hero__photo` falls back to `none`, so a photo-less hero shows the
+   gradient rather than a 404. */
 .hero {
   position: relative;
   isolation: isolate;
@@ -19,7 +24,6 @@
   padding: 6rem var(--container-padding);
   overflow: hidden;
   text-align: left;
-  --hero-photo-url: url("../img/studio-hero-bg.webp");
 }
 
 .hero--consulting {
@@ -195,7 +199,9 @@ body.landing {
   min-height: 100vh;
   min-height: 100svh;
   isolation: isolate;
-  --hero-photo-url: url("../img/landing-page-hero.webp");
+  /* This block sets no --hero-photo-url. It used to point at
+     img/landing-page-hero.webp, which no page in this repo needs and which
+     does not exist here; the rest of the block is inert. */
 }
 body.landing main { flex: 1; display: flex; flex-direction: column; }
 body.landing .hero { flex: 1; align-items: center; }
