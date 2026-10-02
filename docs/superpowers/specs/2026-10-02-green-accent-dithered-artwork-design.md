@@ -78,19 +78,26 @@ hunting literals.
 
 ### Comments
 
-Six comments describe the old colour and become false the moment the tokens
+Five comments describe the old colour and become false the moment the tokens
 change. They are corrected:
 
 - `css/tokens.css:4` — the header citing `#FEE440`
 - `css/tokens.css:28` — "against the yellow/black ground"
-- `css/components.css:229` — "yellow on top at zero opacity"
 - `css/layout.css:295` — "accent yellow on hover / focus"
 - `css/layout.css:489` — "Keys in accent yellow"
 - `css/layout.css:625` — "unreadable on yellow"
 
-Two comments that mention yellow are **left alone**, because they describe the
-wordmark artwork, which stays yellow: `css/layout.css:768` (the flame shadow
-against the yellow mark) and `css/layout.css:848-854`.
+Three comments that mention yellow are **left alone**, because they describe
+yellow artwork rather than the accent token:
+
+- `css/layout.css:768` — the flame shadow against the yellow mark
+- `css/layout.css:848-854` — the wordmark being yellow
+- `css/components.css:229` — the nav logo's two stacked SVG copies, white under
+  yellow, crossfaded on hover
+
+`css/layout.css:625` keeps its claim under the new colour, incidentally: cream
+measures 1.29:1 on `#40FE43` against 1.22:1 on yellow, so "unreadable on the
+accent" holds either way.
 
 ## Known consequences
 

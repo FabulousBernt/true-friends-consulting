@@ -103,7 +103,7 @@
 .field__textarea:focus {
   outline: none;
   border-color: var(--color-accent);
-  background: rgba(254, 228, 64, 0.04);
+  background: var(--color-accent-wash);
 }
 
 .field__input:invalid:not(:placeholder-shown),

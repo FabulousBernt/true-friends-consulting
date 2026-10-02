@@ -1,7 +1,11 @@
 /*
  * True Friends — Design Tokens
  * Source of truth for colors, typography, spacing, radii, motion.
- * Derived from True Friend Website File in Figma + brand logo (#FEE440).
+ * Derived from True Friend Website File in Figma + brand logo (#40FE43).
+ *
+ * The accent is green here and yellow in the landing and studio repos — see
+ * brand/README.md. The drawn logo assets are still yellow on every site; only
+ * the tokens diverge.
  */
 
 :root {
@@ -22,16 +26,20 @@
 
   --color-cream: #faf9f5;
   --color-nav-fg: var(--color-cream);
-  --color-nav-fg-hover: #fee440;
+  --color-nav-fg-hover: #40fe43;
 
-  --color-accent: #fee440;
-  /* Flame red — the one hot note against the yellow/black ground. Rare by
+  --color-accent: #40fe43;
+  /* Flame red — the one hot note against the green/black ground. Rare by
      design: button press, the stamped sticker, nothing else. */
   --color-flame: #ff3b1f;
-  --color-accent-pressed: #e6cf3a;
+  --color-accent-pressed: #3cef3f;
   --color-accent-ink: #0a0a0a;
+  /* The accent at 4% — the tint under a focused form field. Was a literal
+     rgba() in components.css; a token keeps the next accent change to one
+     file. */
+  --color-accent-wash: rgba(64, 254, 67, 0.04);
 
-  --color-focus-ring: #fee440;
+  --color-focus-ring: #40fe43;
 
   /* Frosted-glass surface used for the nav and the section chrome boxes
      — a semi-transparent dark tint under a subtle warm-white

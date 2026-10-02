@@ -27,6 +27,17 @@ repositories — they are copied precisely so each site can change them freely.
 those in step by hand, on the rare occasions they change. That is what makes
 three different-looking sites read as one brand.
 
+### One deliberate exception, as of 2026-10-02
+
+Consulting's accent tokens are **green `#40FE43`**, not yellow `#FEE440`. The
+drawn logo assets are still yellow on all three sites, so the mark reads the
+same everywhere; only `--color-accent`, `--color-nav-fg-hover`,
+`--color-focus-ring`, `--color-accent-pressed` and `--color-accent-wash` in
+`tokens.css` diverge here. Landing and Studio keep yellow.
+
+Do not "fix" this by syncing the tokens back — the divergence is the intent.
+The rule above still governs everything else in this file.
+
 ## One wrinkle
 
 `js/translations/common.js` is not purely common. It carries

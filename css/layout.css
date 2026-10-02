@@ -292,7 +292,7 @@ body:has(.hero--blog) {
 }
 
 /* Inline links inside body paragraphs and figure captions — underlined at rest
-   so they read as links, accent yellow on hover / focus. `.btn` is excluded so
+   so they read as links, accent green on hover / focus. `.btn` is excluded so
    buttons keep their own treatment. Listed selector by selector rather than
    applied to the whole body so structured list/row links (.email-row,
    .consultant-card__table-row, etc.) aren't double-underlined. */
@@ -486,7 +486,7 @@ body:has(.hero--blog) {
 .gallery-listing .gallery__tile::after { content: none; }
 
 /* ---------- Consultant card (portrait + key/value profile) ----------
-   Photo left, dl-style metadata right. Keys in accent yellow, values in
+   Photo left, dl-style metadata right. Keys in accent green, values in
    cream. Reads like `id` / `whoami` output next to the portrait. */
 .consultant-list {
   display: grid;
@@ -622,7 +622,7 @@ body:has(.hero--blog) {
 }
 
 /* Selection. Every descendant colour is restated: cream and muted are
-   unreadable on yellow, so the whole row goes to ink together. */
+   unreadable on the accent, so the whole row goes to ink together. */
 .consultant-card__table-row:hover,
 .consultant-card__table-row:focus-visible {
   background: var(--color-accent);
