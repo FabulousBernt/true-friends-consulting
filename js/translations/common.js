@@ -25,7 +25,6 @@ window.TF_TRANSLATIONS = {
     nav: {
       start: "Start",
       about: "About",
-      services: "Services",
       team: "Consultants",
       gallery: "Gallery",
       contact: "Contact",
@@ -39,9 +38,6 @@ window.TF_TRANSLATIONS = {
          equivalent — the word is identical in both languages, so one file
          serves both. */
       consultingMark: "img/tf-archivo-consulting-yellow-transparent.svg",
-    },
-    services: {
-      label: "Services",
     },
     refCase: {
       about: "About",
@@ -68,13 +64,6 @@ window.TF_TRANSLATIONS = {
     },
     footer: {
       copyright: "© {year} True Friends. All rights reserved.",
-    },
-    /* The nav button across to the 1996 build under /1996/. The label is
-       split so the tail can drop on a narrow screen without leaving the
-       Swedish phrase hyphenated. */
-    era: {
-      classic: "TF 1996",
-      classicTail: "website",
     },
     team: {
       members: {
@@ -117,7 +106,6 @@ window.TF_TRANSLATIONS = {
     nav: {
       start: "Start",
       about: "Om oss",
-      services: "Tjänster",
       team: "Konsulter",
       gallery: "Galleri",
       contact: "Kontakt",
@@ -127,9 +115,6 @@ window.TF_TRANSLATIONS = {
       consulting: "Konsult",
       studio: "Studio",
       consultingMark: "img/tf-archivo-konsult-yellow-transparent.svg",
-    },
-    services: {
-      label: "Tjänster",
     },
     refCase: {
       about: "Om uppdraget",
@@ -156,10 +141,6 @@ window.TF_TRANSLATIONS = {
     },
     footer: {
       copyright: "© {year} True Friends. All rights reserved.",
-    },
-    era: {
-      classic: "TF 1996",
-      classicTail: "webbplats",
     },
     team: {
       members: {
