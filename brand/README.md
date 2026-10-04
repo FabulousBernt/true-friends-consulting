@@ -7,8 +7,9 @@ the moment of the split.
 ```
 css/tokens.css  css/base.css  css/components.css  css/layout.css
 js/main.js  js/lang-boot.js  js/translations/common.js
-img/tf-pc-logo-transparent.svg  img/tf-pc-logo-yellow-transparent.svg
-img/tf-pc-favicon.svg
+img/tf-pc-logo-transparent.svg
+img/studio-navbar-smiley-noborder.svg  img/studio-navbar-smiley-back-noborder.svg
+img/favicon.svg
 tools/i18n.js
 ```
 
@@ -66,3 +67,12 @@ silhouette destroys the screen and the face. A CSS `filter: brightness(0)`
 turns it into a black blob; this has been tried.
 
 Use the all-yellow variant only over a dark ground, where it reads.
+
+The navbar no longer uses this mark. It was replaced by the two smiley files,
+`studio-navbar-smiley-noborder.svg` for the resting state and
+`studio-navbar-smiley-back-noborder.svg` for hover — two separate drawings,
+not two colourways, both filled with the accent yellow. The all-yellow
+variant was dropped with it, leaving no yellow cut of the wordmark.
+
+`tf-pc-logo-transparent.svg` stays for the hero's client-logo slot in
+`reference-cases/template.html`, where it stands in for a client's mark.

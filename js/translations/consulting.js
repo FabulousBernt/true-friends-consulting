@@ -33,7 +33,7 @@ window.TF_ADD_TRANSLATIONS({
       members: {
         johnny: {
           role: "Tester / UX/UI Designer",
-          bio: "I like exploring and investigating software and solving problems for customers. I advocate usability, security and aesthetics.",
+          bio: "I like to explore and investigate software and to solve problems for customers and their users. I advocate usability, security and aesthetics.",
           cvHref: "cv/johnny-vigersten-cv-EN.pdf",
         },
       },

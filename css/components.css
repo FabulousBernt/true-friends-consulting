@@ -216,34 +216,47 @@
   .nav__inner { height: 96px; }
 }
 
-/* Holds the two stacked wordmark images and no text, so it carries no type
+/* Holds the two stacked smiley images and no text, so it carries no type
    properties — those were left from when the brand was the words "True
    Friends", and `color` lost its last consumer when the hover became an
-   opacity swap between two files. */
+   opacity swap between two files.
+
+   justify-items keeps each image at its own width. The pair are drawn to
+   match, but their viewBoxes differ by a unit — 297x298 against 298x298 —
+   so the default stretch would widen the narrower one to the column and
+   skew it. Centring lets both hold their true ratio. */
 .nav__brand {
   display: inline-grid;
   align-items: center;
+  justify-items: center;
 }
 
-/* Two copies of the mark stacked in the same grid cell: white
-   underneath, yellow on top at zero opacity. Hover fades the yellow in,
-   and because both are the identical artwork it lands exactly over the
-   white, with no fade — the swap is instant. No colour maths, no mask,
-   no filter either: CSS cannot recolour the
+/* Two copies of the mark stacked in the same grid cell: the resting smiley
+   underneath, the winking one on top at zero opacity. Hover fades the top
+   one in, and because the pair are drawn to the same ink box — measured at
+   297.95 and 297.86 units tall, 0.03% apart — it lands squarely over the one
+   beneath, so the swap reads as instant. They are two drawings rather than
+   two colourways: both fill the accent yellow, so this is not a recolour.
+
+   No colour maths, no mask, no filter either: CSS cannot recolour the
    fills inside an <img>, and masking the SVG failed because its root is
    width="100%" height="100%", so it carries no intrinsic size. Two files
    sidesteps all of it. */
 .nav__brand:hover .nav__brand-logo--hover { opacity: 1; }
 
 /* Sized by height, so the nav row stays put whatever the artwork's ratio.
-   The viewBox is cropped to the ink, so this height IS the glyph height —
-   no clear space to discount. The numbers are the uncropped 26/3.4/34
-   scaled by 1174.876/1451, the fraction of the old box that was actually
-   inked, so the mark renders at the size it did before the crop. */
+   The viewBox is cropped to the ink, so this height very nearly IS the
+   glyph height — 297.95 of 298 units, leaving no clear space to discount.
+
+   The numbers are the previous clamp (21/2.75/27.5) scaled by 0.877189.
+   The old wordmark inked 1307.67 of its 1491-unit box, so at the old clamp
+   it drew 87.70% of the height it was handed, while this artwork inks
+   99.98% of its own. One fraction divided by the other is what holds the
+   smiley the same size on screen as the mark it replaced. */
 .nav__brand-logo {
   grid-area: 1 / 1;
   display: block;
-  height: clamp(21px, 2.75vw, 27.5px);
+  height: clamp(18.42px, 2.412vw, 24.12px);
   width: auto;
 }
 
