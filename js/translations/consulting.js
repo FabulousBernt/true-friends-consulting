@@ -13,7 +13,7 @@ window.TF_ADD_TRANSLATIONS({
     },
     hero: {
       lede: {
-        consulting: "We provide consulting services in testing, ux/ui design, web production, software development and cybersecurity.",
+        consulting: "We provide consulting services in testing, ux/ui design, web/software development and cybersecurity.",
       },
     },
     about: {
@@ -63,7 +63,7 @@ window.TF_ADD_TRANSLATIONS({
     },
     hero: {
       lede: {
-        consulting: "Vi erbjuder konsulttjänster inom testning, ux/ui-design, webbproduktion, mjukvaruutveckling och cybersäkerhet.",
+        consulting: "Vi erbjuder konsulttjänster inom testning, ux/ui-design, webb/mjukvaruutveckling och cybersäkerhet.",
       },
     },
     about: {
