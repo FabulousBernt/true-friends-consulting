@@ -71,6 +71,12 @@
   --container-padding: clamp(1.25rem, 4vw, 2.5rem);
   --section-gap: clamp(5rem, 10vw, 7.5rem);
   --nav-height: 72px;
+  /* Extra air above the brand hero's content, on top of its own padding-top,
+     so it matches the studio hero. Studio was getting this from a leaky icon
+     sprite that opened a 150px band above its nav; that band is collapsed
+     there now and the space has been reassigned to the hero on both sites,
+     which puts the two heroes at the same distance from their navbars. */
+  --hero-top-air: 150px;
 
   --control-height: 48px;
 

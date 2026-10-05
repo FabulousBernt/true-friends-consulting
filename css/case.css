@@ -5,7 +5,7 @@
    two read as the same section minus the chrome box. */
 .hero--blog {
   min-height: auto;
-  padding: clamp(8rem, 14vw, 12rem) 0 clamp(6rem, 12vw, 10rem);
+  padding: calc(clamp(8rem, 14vw, 12rem) + var(--hero-top-air)) 0 clamp(6rem, 12vw, 10rem);
   align-items: stretch;
 }
 

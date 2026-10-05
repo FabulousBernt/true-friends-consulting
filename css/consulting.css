@@ -481,11 +481,21 @@ body:has(dialog[open]) { overflow: hidden; }
      mark -> lede   1.618  the lede explains the title
      lede -> button 2.618  reading ends, acting begins
 
-   --rhythm drives all of it, so the stack retunes from one number. */
+   --rhythm drives all of it, so the stack retunes from one number.
+
+   min-height drops the 80vh/92vh floor the base `.hero` sets, so the hero is
+   content-driven like the studio one. That floor was adding a viewport-scaled
+   band of slack above and below the stack, which held the page name further
+   from the nav above it and from the About section below than it sits on the
+   studio page.
+
+   --hero-top-air carries the studio hero's own extra clearance, so both page
+   names sit the same distance below their navbars. See the token. */
 .hero--consulting {
   text-align: center;
+  min-height: auto;
   align-items: center;
-  padding: clamp(8rem, 14vw, 12rem) 0 clamp(4rem, 8vw, 6rem);
+  padding: calc(clamp(8rem, 14vw, 12rem) + var(--hero-top-air)) 0 clamp(4rem, 8vw, 6rem);
 }
 
 .hero__brand {
