@@ -1,0 +1,581 @@
+/* True Friends — consulting page only. Loaded by index.html alone. */
+
+/* ---------- Button ---------- */
+.btn {
+  --btn-bg: var(--color-accent);
+  --btn-fg: var(--color-accent-ink);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: var(--control-height);
+  padding: 0 1.25rem;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.2;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  transition:
+    background-color var(--duration-base) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out);
+}
+
+.btn:hover { --btn-bg: var(--color-cream); }
+
+.btn:active {
+  --btn-bg: var(--color-accent-pressed);
+  transform: translateY(1px);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn--outline {
+  --btn-bg: transparent;
+  --btn-fg: var(--color-cream);
+  border: 2px solid var(--color-cream);
+}
+
+.btn--outline:hover {
+  --btn-bg: var(--color-cream);
+  --btn-fg: var(--color-bg);
+}
+
+/* ---------- Form ---------- */
+.field {
+  position: relative;
+  display: block;
+}
+
+.field__input,
+.field__textarea {
+  width: 100%;
+  height: var(--control-height);
+  padding: 0 14px;
+  background: transparent;
+  color: var(--color-text-strong);
+  border: 1px solid var(--color-border-input);
+  font-size: var(--fs-body);
+  transition:
+    border-color var(--duration-base) var(--ease-out),
+    background-color var(--duration-base) var(--ease-out);
+}
+
+.field__textarea {
+  height: 109px;
+  min-height: 96px;
+  padding: 12px 14px;
+  resize: vertical;
+}
+
+.field__input::placeholder,
+.field__textarea::placeholder {
+  color: var(--color-text-subtle);
+}
+
+.field__input:hover,
+.field__textarea:hover {
+  border-color: var(--color-border-strong);
+}
+
+.field__input:focus,
+.field__textarea:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  background: rgba(254, 228, 64, 0.04);
+}
+
+.field__input:invalid:not(:placeholder-shown),
+.field__textarea:invalid:not(:placeholder-shown) {
+  border-color: var(--color-danger);
+}
+
+.form {
+  display: grid;
+  gap: 14px;
+  width: 100%;
+  max-width: 384px;
+}
+
+.form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+/* Visually-hidden honeypot field for bot detection. Real users cannot see or
+   focus it; bots fill it and the submission is silently dropped. */
+.honeypot {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.form__status {
+  min-height: 1.25rem;
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+}
+
+.form__status:empty { display: none; }
+
+.form__status[data-state="success"] { color: var(--color-accent); }
+.form__status[data-state="error"]   { color: var(--color-danger); }
+
+/* The contact form's single submit spans the form, the way .modal__actions'
+   pair spans the modal: one action so the row is undivided, two so it splits
+   in half. Neither leaves a lone button stranded against one edge. */
+.form__actions {
+  display: flex;
+  width: 100%;
+}
+
+.form__actions .btn { flex: 1; }
+
+@media (max-width: 480px) {
+  .form__row { grid-template-columns: 1fr; }
+}
+
+/* ---------- Contact section ---------- */
+.contact__head { margin-bottom: 0.5rem; }
+
+.contact__grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: 1fr;
+  margin-top: 1rem;
+}
+
+.contact__side {
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+}
+
+@media (min-width: 768px) {
+  /* The form gets the wider column; the aside is naturally compact. */
+  .contact__grid {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: 4rem;
+  }
+}
+
+.email-row,
+.address-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  color: var(--color-text-strong);
+  font-weight: 500;
+}
+
+.address-row {
+  align-items: flex-start;
+  /* The UA stylesheet italicises <address>. It is a postal address, not an
+     emphasised aside, so it reads as the same weight as the email above it. */
+  font-style: normal;
+}
+
+.email-row:hover { color: var(--color-accent); }
+
+.email-row svg,
+.address-row svg {
+  width: 20px;
+  height: 20px;
+  flex: none;
+}
+
+.address-row svg { margin-top: 0.125rem; }
+
+.address-row > span { display: flex; flex-direction: column; }
+
+/* ---------- Modal ---------- */
+.modal {
+  width: 506px;
+  max-width: calc(100vw - 32px);
+  max-height: calc(100vh - 32px);
+  padding: 0;
+  border: 0;
+  background: var(--color-bg);
+  color: var(--color-cream);
+}
+
+.modal::backdrop {
+  background: rgba(0, 0, 0, 0.6);
+  -webkit-backdrop-filter: blur(6px);
+          backdrop-filter: blur(6px);
+}
+
+.modal__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 41px;
+  padding: 40px;
+  position: relative;
+}
+
+.modal__heading {
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+  gap: 16px;
+}
+
+.modal__title {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 1;
+  color: var(--color-cream);
+}
+
+.modal__desc {
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--color-text);
+}
+
+.modal__form {
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+  gap: 14px;
+  width: 100%;
+}
+
+.modal__form .field__textarea { height: 109px; }
+
+.modal__actions {
+  display: flex;
+  gap: 14px;
+  width: 100%;
+  margin-top: 2px;
+}
+
+.modal__actions .btn {
+  flex: 1;
+  height: var(--control-height);
+  padding: 0;
+}
+
+@media (max-width: 540px) {
+  .modal__inner {
+    padding: 32px 20px;
+    gap: 28px;
+  }
+  .modal__form .form__row { grid-template-columns: 1fr; }
+  .modal__actions { flex-direction: column-reverse; }
+  .modal__actions .btn {
+    flex: none;
+    width: 100%;
+    height: var(--control-height);
+  }
+}
+
+/* Stops the page scrolling behind an open dialog. */
+body:has(dialog[open]) { overflow: hidden; }
+
+/* ---------- Consultant card ----------
+   Photo left, key/value profile right, keys in accent yellow and values in
+   cream. Reads like `id` / `whoami` output beside the portrait. */
+.consultant-list {
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.consultant-card {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(1.25rem, 2.5vw, 2rem);
+  padding: clamp(1rem, 2vw, 1.5rem);
+  border: 1px solid var(--color-border-subtle);
+  background: var(--color-surface);
+}
+
+@media (min-width: 720px) {
+  .consultant-card {
+    grid-template-columns: minmax(0, 220px) 1fr;
+    align-items: start;
+  }
+}
+
+.consultant-card__portrait {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.consultant-card__portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.consultant-card__meta {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  font-size: clamp(0.9375rem, 1.05vw, 1rem);
+  line-height: 1.55;
+  color: var(--color-text);
+}
+
+.consultant-card__row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.15rem;
+}
+
+@media (min-width: 480px) {
+  .consultant-card__row {
+    grid-template-columns: 5.5rem 1fr;
+    gap: 1rem;
+  }
+}
+
+.consultant-card__key {
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.consultant-card__val { color: var(--color-text); }
+
+.consultant-card__val--strong {
+  color: var(--color-cream);
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+/* Reference cases, as a table in the card. Each row is one link; hover and
+   focus invert it the way a selected line inverts in a file manager. A list
+   of links laid out as a grid rather than a <table>, so a screen reader hears
+   one link per case ("Epiroc, Mining, Design lead and Test") instead of nine
+   cells. */
+.consultant-card__table-head,
+.consultant-card__table-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr) minmax(0, 1.25fr);
+  align-items: baseline;
+  gap: clamp(0.5rem, 2vw, 1.25rem);
+  padding: 0.7rem 0.875rem;
+}
+
+/* Headers are decoration for sighted readers — each row link already carries
+   the accessible name — so they are aria-hidden. */
+.consultant-card__table-head {
+  font-size: var(--fs-small);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* The card is two columns at wide widths. Header and table must span the full
+   width below the portrait row, or auto-placement drops the header into the
+   narrow portrait column, beside the table instead of above it. */
+.consultant-card__table-head,
+.consultant-card__table {
+  grid-column: 1 / -1;
+}
+
+.consultant-card__table-row {
+  font-size: var(--fs-small);
+  color: var(--color-text);
+  border-bottom: 1px solid var(--color-border-subtle);
+  transition: background-color var(--duration-fast) var(--ease-out),
+              color var(--duration-fast) var(--ease-out);
+}
+
+.consultant-card__table-client {
+  font-weight: 700;
+  color: var(--color-cream);
+}
+
+.consultant-card__table-row:hover,
+.consultant-card__table-row:focus-visible {
+  background: var(--color-accent);
+}
+
+/* Every descendant colour is restated on hover: cream and muted are
+   unreadable on yellow, so the whole row goes to ink together. */
+.consultant-card__table-row:hover :is(.consultant-card__table-client, .consultant-card__table-sector, .consultant-card__table-role),
+.consultant-card__table-row:focus-visible :is(.consultant-card__table-client, .consultant-card__table-sector, .consultant-card__table-role) {
+  color: var(--color-accent-ink);
+}
+
+/* The inversion alone is a colour-only cue. This inset rule is the actual
+   focus indicator and reads as a selection rectangle. */
+.consultant-card__table-row:focus-visible {
+  outline: 2px solid var(--color-accent-ink);
+  outline-offset: -4px;
+}
+
+/* Under 600px three columns cannot be read. The row stacks: client as the line
+   carrying the weight, sector and role beneath it. */
+@media (max-width: 600px) {
+  .consultant-card__table-head { display: none; }
+
+  .consultant-card__table-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.15rem;
+    padding: 0.8rem 0.875rem;
+  }
+}
+
+/* CV link: hyperlink treatment with a leading download icon, so it reads as
+   a download rather than a navigation. */
+.consultant-card__cv {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-cream);
+  transition: color var(--duration-base) var(--ease-out);
+}
+
+.consultant-card__cv-text {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.consultant-card__cv:hover,
+.consultant-card__cv:focus-visible {
+  color: var(--color-accent);
+  outline: none;
+}
+
+.consultant-card__cv-icon {
+  flex: none;
+  width: 16px;
+  height: 16px;
+}
+
+/* ---------- Brand hero ----------
+   The page name IS the hero, as drawn artwork carrying the logo's own face.
+   That costs a file per word per language, which is the trade: that face is
+   not one we can serve as a webfont.
+
+   Sized by HEIGHT, not width. The word changes length between languages
+   (CONSULTING is 7.0:1, KONSULT is 5.6:1), so sizing by width would set the
+   Swedish title at a smaller cap height than the English one and the two
+   would not read as the same design. Height-sizing holds one cap height and
+   lets each word run as long as it runs.
+
+   Vertical rhythm: one flex gap spaced on a modular scale, ratio 1.618, so
+   the spacing states the relationships. Equal spacing made the lede look as
+   attached to the button below as to the title above, and proximity was
+   encoding nothing.
+
+     mark -> lede   1.618  the lede explains the title
+     lede -> button 2.618  reading ends, acting begins
+
+   --rhythm drives all of it, so the stack retunes from one number. */
+.hero--consulting {
+  text-align: center;
+  align-items: center;
+  padding: clamp(8rem, 14vw, 12rem) 0 clamp(4rem, 8vw, 6rem);
+}
+
+.hero__brand {
+  --rhythm: clamp(0.75rem, 1.4vw, 1.25rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* TRUE FRIENDS, the brand line the page name hangs under. Untranslated: it is
+   a proper noun and reads the same in both languages, so it is markup rather
+   than a translation key.
+
+   The landing hero sets the same line, so the tracking and weight match it
+   exactly. 0.5em of letter-spacing is not an arbitrary "large" — Modern DOS
+   8x16 sets every glyph on a 0.5em advance, so 0.5em of tracking is precisely
+   one character cell. It doubles the gap between letters and keeps every glyph
+   on the same pixel grid at any size; a rounder 0.35em would be 0.7 of a cell
+   and would stagger the columns, which shows as uneven spacing at small sizes.
+
+   font-size reproduces the landing's 6.6cqw against its 28rem container, which
+   is what makes it grow to 29.568px by a 488px viewport and then stop: the
+   line never outgrows the mark it sits above. */
+.hero__eyebrow {
+  margin: 0 0 var(--rhythm);
+  margin-right: -0.5em;
+  font-size: clamp(0.75rem, calc(6.6vw - 0.165rem), 1.848rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0.5em;
+  color: var(--color-text-strong);
+}
+
+.hero__mark {
+  --mark-offset: clamp(2px, 0.4vw, 5px);
+  margin: 0;
+  width: 100%;
+}
+
+/* A flame offset behind the mark, standing in for the misregistration of a
+   cheap two-colour screen print. drop-shadow follows the glyph outline rather
+   than the box, so the flame hugs the letterforms the way a second screen pass
+   would. Two stacked shadows: flame first, then a tight black bite to stop the
+   red vibrating against the yellow. Offsets are viewport-scaled px, not em —
+   this is an <h1>, and an em offset would key off the inherited heading size
+   rather than the artwork.
+
+   The offset lives on the image, not the heading, because on a case page the
+   heading holds the client logo and that reads better flat. */
+.hero__mark img {
+  filter:
+    drop-shadow(var(--mark-offset) var(--mark-offset) 0 var(--color-flame))
+    drop-shadow(1px 1px 0 rgba(10, 10, 10, 0.55));
+}
+
+/* max-width and object-fit are insurance, not the mechanism: the height clamp
+   is already tuned to fit CONSULTING — the widest of the three words — inside
+   the container at every viewport down to 320px. Were the width ever to clamp,
+   contain letterboxes it rather than stretching the letterforms. */
+.hero__mark--section {
+  display: flex;
+  justify-content: center;
+  max-width: 100%;
+}
+
+.hero__mark--section img {
+  width: auto;
+  height: clamp(2.25rem, 9vw, 7rem);
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.hero__lede {
+  margin: calc(var(--rhythm) * 1.618) 0 0;
+  max-width: 60ch;
+  font-size: clamp(0.9375rem, 1.15vw, 1.125rem);
+  line-height: 1.6;
+  color: var(--color-cream);
+  text-wrap: balance;
+}
+
+/* The widest step on the scale: the lede finishes reading, the button starts
+   acting. This also replaces the base .hero__cta margin-top, which would
+   otherwise stack on top of the rhythm. */
+.hero--consulting .hero__cta {
+  margin-top: calc(var(--rhythm) * 2.618);
+}
+
+/* Left at 700px deliberately and unscoped to any one page: widening it would
+   retune this rhythm on window heights that were never the problem. */
+@media (max-height: 700px) {
+  .hero__brand { gap: clamp(1rem, 2.5vw, 1.5rem); }
+}

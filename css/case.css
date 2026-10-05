@@ -1,0 +1,104 @@
+/* True Friends — reference case pages only. Loaded by the six case studies. */
+
+/* ---------- Case hero ----------
+   Blog-post sizing, mirroring the consulting hero's height and rhythm so the
+   two read as the same section minus the chrome box. */
+.hero--blog {
+  min-height: auto;
+  padding: clamp(8rem, 14vw, 12rem) 0 clamp(6rem, 12vw, 10rem);
+  align-items: stretch;
+}
+
+.hero--blog .hero__scrim {
+  background:
+    radial-gradient(ellipse 80% 55% at 50% 48%, rgba(10, 10, 10, 0.72) 0%, rgba(10, 10, 10, 0) 75%),
+    linear-gradient(180deg, rgba(10, 10, 10, 0.45) 0%, rgba(10, 10, 10, 0.2) 35%, rgba(10, 10, 10, 0.6) 100%);
+}
+
+.hero__content {
+  display: grid;
+  justify-items: center;
+  width: fit-content;
+  max-width: 100%;
+  text-align: center;
+}
+
+/* The client logo replaces the headline on a case hero, so it has to carry it.
+   Sized a step above the title font-size it replaced. */
+.hero__case-heading {
+  line-height: 0;
+}
+
+.hero__case-logo {
+  width: auto;
+  height: clamp(44px, 8vw, 88px);
+  object-fit: contain;
+}
+
+/* ---------- Section content ---------- */
+
+/* Bulleted list inside a section body. base.css strips list markers globally,
+   so this restores them rather than leaning on the browser default. */
+.section__list {
+  list-style: disc;
+  padding-left: 1.25rem;
+  display: grid;
+  gap: 0.4rem;
+}
+
+.section__figure {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.section__figure img {
+  width: 100%;
+  height: auto;
+}
+
+/* Portrait variant: crops to a 4:5 frame and holds the figure at a third of
+   the body column, so a tall image sits alongside the copy instead of
+   dominating it. Full width on narrow viewports, where a third of a column is
+   too small to read. */
+.section__figure--portrait img {
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+
+/* Figure row matched on height rather than stretched to equal column widths —
+   for a pair whose aspect ratios differ, where equal widths would upscale the
+   narrower image and leave it towering over its neighbour. */
+.section__figure-row--natural img {
+  width: auto;
+  max-width: 100%;
+  max-height: 500px;
+  margin-inline: auto;
+}
+
+.section__figure-caption {
+  margin: 0;
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+}
+
+/* Small muted note inside a section body — footnotes and disclaimers. Same
+   visual weight as a figure caption. */
+.section__note {
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+}
+
+.section__figure-row {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 720px) {
+  .section__figure-row { grid-template-columns: 1fr 1fr; }
+
+  /* --portrait also crops to 4:5; --third is width only, for images that must
+     keep their own aspect ratio. */
+  .section__figure--portrait,
+  .section__figure--third { width: 33.333%; }
+}

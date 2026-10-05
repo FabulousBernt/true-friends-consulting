@@ -33,23 +33,26 @@ window.TF_ADD_TRANSLATIONS({
       members: {
         johnny: {
           role: "Tester / UX/UI Designer",
-          bio: "I like to explore and investigate software and to solve problems for customers and their users. I advocate usability, security and aesthetics.",
+          bio: "I like exploring and investigating software and solving problems for customers. I advocate usability, security and aesthetics.",
           cvHref: "cv/johnny-vigersten-cv-EN.pdf",
         },
       },
     },
     /* The reference cases, as a table in the consultant card. The sector
        and role per case were derived from the case prose and are recorded
-       here, one source, so the table and the cases can never disagree. */
+       here, one source, so the table and the cases can never disagree.
+
+       Roles read "UX/UI" rather than a middot: it is one discipline, not two,
+       and the slash keeps the value inside the column. */
     work: {
       cols: { client: "client", sector: "sector", role: "role" },
       cases: {
-        epiroc:      { sector: "Mining equipment",       role: "Tester / Designer" },
-        sectra:      { sector: "Secure communications", role: "Tester / Designer" },
-        bufab:       { sector: "Supply chain", role: "Tester / Designer" },
-        avarn:       { sector: "Security",     role: "Tester / Designer" },
-        skeKraft:    { sector: "Energy & Utilities",       role: "Designer" },
-        kopparbergs: { sector: "Brewery",      role: "Tester / Designer" },
+        epiroc:      { sector: "Mining",      role: "Test · UX/UI" },
+        sectra:      { sector: "Secure comms", role: "Test · UX/UI" },
+        bufab:       { sector: "Distribution", role: "Test · UX/UI" },
+        avarn:       { sector: "Security",    role: "Test · UX/UI" },
+        skeKraft:    { sector: "Energy",      role: "UX/UI" },
+        kopparbergs: { sector: "Brewing",     role: "Test · UX/UI" },
       },
     },
   },
@@ -88,12 +91,12 @@ window.TF_ADD_TRANSLATIONS({
     work: {
       cols: { client: "kund", sector: "bransch", role: "roll" },
       cases: {
-        epiroc:      { sector: "Gruvutrustning",        role: "Testare / Designer" },
-        sectra:      { sector: "Säker kommunikation", role: "Testare / Designer" },
-        bufab:       { sector: "Distribution",        role: "Testare / Designer" },
-        avarn:       { sector: "Säkerhet",            role: "Testare / Designer" },
-        skeKraft:    { sector: "Energi",              role: "Designer" },
-        kopparbergs: { sector: "Bryggeri",            role: "Testare / Designer" },
+        epiroc:      { sector: "Gruvutrustning",        role: "Test · UX/UI" },
+        sectra:      { sector: "Säker kommunikation", role: "Test · UX/UI" },
+        bufab:       { sector: "Distribution",        role: "Test · UX/UI" },
+        avarn:       { sector: "Säkerhet",            role: "Test · UX/UI" },
+        skeKraft:    { sector: "Energi",              role: "UX/UI" },
+        kopparbergs: { sector: "Bryggeri",            role: "Test · UX/UI" },
       },
     },
   },

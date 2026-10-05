@@ -6,13 +6,19 @@ yarn-error.log
 coverage/
 dist/
 build/
+
 .DS_Store
+Thumbs.db
 *.swp
 *.swo
 *~
+
 .vscode/
 .idea/
+.claude/
+.mcp.json
+.worktrees/
 .superpowers/
 
-# Design references dropped in while working — not site assets.
-img/17*.jpg
+# Working notes and design references. Git history keeps what was removed.
+docs/superpowers/

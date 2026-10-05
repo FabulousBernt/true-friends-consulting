@@ -1,4 +1,95 @@
-/* True Friends — Base reset & typography */
+/*
+ * True Friends — base layer. Everything every page needs.
+ * Page-specific rules live in consulting.css and case.css.
+ */
+
+:root {
+  /* ---------- Colour ---------- */
+  --color-bg: #0a0a0a;
+  --color-surface: rgba(255, 255, 255, 0.04);
+  --color-surface-hover: rgba(255, 255, 255, 0.07);
+
+  --color-border-subtle: rgba(204, 213, 225, 0.10);
+  --color-border: rgba(204, 213, 225, 0.18);
+  --color-border-strong: rgba(204, 213, 225, 0.35);
+  --color-border-input: rgba(204, 213, 225, 0.22);
+
+  --color-text: #e8e6dc;
+  --color-text-strong: #ffffff;
+  --color-text-muted: rgba(232, 230, 220, 0.65);
+  --color-text-subtle: rgba(232, 230, 220, 0.45);
+
+  --color-cream: #faf9f5;
+  --color-nav-fg: var(--color-cream);
+  --color-nav-fg-hover: #fee440;
+
+  --color-accent: #fee440;
+  --color-accent-ink: #0a0a0a;
+  --color-accent-pressed: #e6cf3a;
+  /* Flame red: the one hot note against the yellow/black ground. Rare by
+     design — button press, the mark's offset shadow, nothing else. */
+  --color-flame: #ff3b1f;
+  --color-danger: #ff7676;
+
+  --color-focus-ring: #fee440;
+
+  /* Frosted-glass surface for the nav and the section chrome boxes, plus the
+     blur they share. Both exist to read as one consistent chrome. */
+  --color-glass-tint: rgba(10, 10, 10, 0.5);
+  --color-glass-highlight: rgba(255, 255, 255, 0.03);
+  --blur-glass: blur(6px) saturate(120%);
+
+  --gradient-hero:
+    radial-gradient(ellipse 80% 60% at 70% 65%, rgba(255, 140, 60, 0.35), transparent 70%),
+    radial-gradient(ellipse 70% 50% at 20% 30%, rgba(20, 25, 50, 0.85), transparent 70%),
+    linear-gradient(180deg, #0a0a0a 0%, #1a1208 55%, #0a0a0a 100%);
+
+  /* ---------- Typography ----------
+     One voice. JetBrains Mono sets everything, headings included. A display
+     face used to take the headings, but the heroes now open on drawn artwork,
+     which left it setting nav links and buttons — small sizes where its weight
+     reads as nothing but a bold sans, at a whole variable font's cost.
+
+     Headings take their authority from weight, size, case and tracking rather
+     than a second family, which works because the mark above them is already
+     doing the shouting. */
+  --font-body: "JetBrains Mono", ui-monospace, "SFMono-Regular", "Menlo", "Consolas", monospace;
+  --fs-body: 1rem;
+  --fs-small: 0.875rem;
+  --fs-caption: 0.75rem;
+
+  /* Small caps have no ascenders or descenders to set a rhythm, so they are
+     opened up. No matching negative display tracking: a monospace face has a
+     fixed advance width that negative tracking only crowds. */
+  --tracking-label: 0.03em;
+
+  --lh-snug: 1.2;
+  --lh-relaxed: 1.65;
+
+  /* ---------- Layout ---------- */
+  --container-max: 1000px;
+  --container-padding: clamp(1.25rem, 4vw, 2.5rem);
+  --section-gap: clamp(5rem, 10vw, 7.5rem);
+  --nav-height: 72px;
+
+  --control-height: 48px;
+
+  /* ---------- Motion ---------- */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-fast: 140ms;
+  --duration-base: 220ms;
+
+  --z-nav: 50;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms;
+    --duration-base: 0ms;
+  }
+}
+
+/* ---------- Reset ---------- */
 
 *,
 *::before,
@@ -29,10 +120,19 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-img, svg, video {
+img, svg {
   display: block;
   max-width: 100%;
   height: auto;
+}
+
+/* Icon sprite: the <defs> are only ever referenced by <use>, never drawn.
+   Zeroed here rather than with a style attribute, which the page CSP blocks. */
+.tf-svg-sprite {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
 }
 
 a {
@@ -51,13 +151,12 @@ button {
 }
 
 input,
-textarea,
-select {
+textarea {
   font: inherit;
   color: inherit;
 }
 
-ul, ol {
+ul {
   margin: 0;
   padding: 0;
   list-style: none;
@@ -67,36 +166,23 @@ p {
   margin: 0;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2 {
   margin: 0;
-  font-family: var(--font-display);
   font-weight: 800;
   line-height: var(--lh-snug);
   color: var(--color-text-strong);
 }
 
+/* outline-offset rather than a border-radius: a radius here would restyle the
+   shape of every focusable element on the site. */
 :focus-visible {
   outline: 2px solid var(--color-focus-ring);
   outline-offset: 3px;
-  border-radius: 4px;
 }
 
 ::selection {
   background: var(--color-accent);
   color: var(--color-accent-ink);
-}
-
-/* Typography utilities */
-.lede {
-  font-family: var(--font-body);
-  font-size: 24px;
-  line-height: var(--lh-snug);
-  color: var(--color-text-strong);
-  font-weight: 700;
-}
-
-.accent {
-  color: var(--color-accent);
 }
 
 .sr-only {
@@ -111,24 +197,493 @@ h1, h2, h3, h4, h5, h6 {
   border: 0;
 }
 
-/* Visually-hidden honeypot field for bot detection.
-   Real users can't see or focus it. Bots fill it; submission is silently dropped. */
-.honeypot {
-  position: absolute;
-  left: -9999px;
-  top: auto;
-  width: 1px;
-  height: 1px;
-  opacity: 0;
-  overflow: hidden;
-  pointer-events: none;
-}
-
 /* Held back by js/lang-boot.js while a Swedish visitor's page is still
-   English in the markup. `visibility` rather than `display` so layout
-   resolves underneath and nothing reflows when it lifts — and the body
-   background still paints, so it reads as the page arriving, not a blank
-   screen. English visitors never get this attribute. */
+   English in the markup. `visibility` rather than `display` so layout resolves
+   underneath and nothing reflows when it lifts. English visitors never get
+   this attribute. */
 html[data-tf-translating] body {
   visibility: hidden;
 }
+
+/* Opening line of a section: same family, heavier, so it reads as the lede
+   rather than as another paragraph. */
+.lede {
+  font-size: 24px;
+  line-height: var(--lh-snug);
+  font-weight: 700;
+  color: var(--color-text-strong);
+}
+
+.accent {
+  color: var(--color-accent);
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding-inline: var(--container-padding);
+}
+
+/* ---------- Hero ----------
+   The photo, gradient and scrim are painted layers: position: fixed so they
+   fill the viewport and read as one image behind the fixed nav. `.hero` sets
+   isolation: isolate, which would trap them in its own stacking context and
+   paint them over later sections — so it is turned off for the heroes that
+   carry a photo, letting body's isolation do the work instead. */
+.hero {
+  position: relative;
+  isolation: isolate;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6rem var(--container-padding);
+  overflow: hidden;
+  text-align: left;
+}
+
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-image: var(--gradient-hero);
+  background-size: cover;
+  background-position: center;
+}
+
+/* The photo is an <img srcset> rather than a background-image so the
+   browser picks the width from the viewport and pixel density itself, and
+   fetchpriority="high" in the markup gets it moving at first paint. The
+   page CSP blocks inline style attributes, which is the other reason it
+   cannot be painted from the markup. */
+.hero__photo {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.hero__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 55% 60% at 50% 55%, rgba(10, 10, 10, 0.7) 0%, rgba(10, 10, 10, 0) 70%),
+    linear-gradient(180deg, rgba(10, 10, 10, 0.4) 0%, rgba(10, 10, 10, 0.1) 35%, rgba(10, 10, 10, 0.6) 100%);
+}
+
+.hero__cta {
+  margin-top: 32px;
+  justify-self: center;
+}
+
+@media (min-width: 640px) {
+  :root { --nav-height: 96px; }
+  .hero { min-height: 92vh; }
+}
+
+/* Pages whose hero carries a photo: the backdrop is promoted to fixed so it
+   spans the viewport, and the nav floats over it as glass. */
+body:has(.hero--consulting),
+body:has(.hero--blog) {
+  isolation: isolate;
+}
+
+body:has(.hero--consulting) .nav,
+body:has(.hero--blog) .nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: var(--color-glass-tint);
+  border-bottom: 1px solid var(--color-border);
+  -webkit-backdrop-filter: var(--blur-glass);
+          backdrop-filter: var(--blur-glass);
+}
+
+.hero--consulting,
+.hero--blog {
+  isolation: auto;
+}
+
+.hero--consulting .hero__bg,
+.hero--consulting .hero__photo,
+.hero--consulting .hero__scrim,
+.hero--blog .hero__bg,
+.hero--blog .hero__photo,
+.hero--blog .hero__scrim {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hero--consulting .hero__photo,
+.hero--blog .hero__photo {
+  opacity: 0.5;
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 60%, transparent 100%);
+          mask-image: linear-gradient(180deg, #000 0%, #000 60%, transparent 100%);
+}
+
+/* ---------- Section ----------
+   Each section is a titled panel: a labelled bar over the content, no
+   traffic lights. Class names still say `terminal` — renaming them touches
+   every page, so it is left as its own job. */
+.section {
+  padding: var(--section-gap) 0;
+  scroll-margin-top: calc(var(--nav-height) + 16px);
+}
+
+.section + .section { padding-top: 0; }
+
+.section__body {
+  display: grid;
+  gap: 1.25rem;
+}
+
+/* Inline links in body prose are underlined so they read as links. `.btn` is
+   excluded so buttons keep their own treatment, and the structured row links
+   (.email-row, .consultant-card__table-row) are listed rather than swept up by
+   a blanket rule so they do not get double-underlined. */
+.section__body p a:not(.btn),
+.section__figure-caption a:not(.btn) {
+  text-decoration: underline;
+}
+
+.section__body a:not(.btn):hover,
+.section__body a:not(.btn):focus-visible {
+  color: var(--color-accent);
+}
+
+.section__terminal {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--color-glass-tint);
+  border: 1px solid var(--color-border);
+  -webkit-backdrop-filter: var(--blur-glass);
+          backdrop-filter: var(--blur-glass);
+}
+
+.section__terminal-chrome {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex: none;
+  padding: 0.5rem 0.875rem;
+  background: var(--color-glass-highlight);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.section__terminal-title {
+  font-size: clamp(0.875rem, 1.05vw, 1rem);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.section__terminal-body {
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+/* ---------- Top nav ---------- */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-nav);
+  background: rgba(10, 10, 10, 0.78);
+  -webkit-backdrop-filter: saturate(180%) blur(10px);
+          backdrop-filter: saturate(180%) blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.nav__inner {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  column-gap: 1.5rem;
+  height: var(--nav-height);
+  padding: 0 var(--container-padding);
+}
+
+.nav__crumbs { justify-self: start; display: flex; align-items: center; gap: 0.5rem; min-width: 0; }
+.nav__links  { justify-self: center; }
+.nav__right  { grid-column: 3; justify-self: end; display: flex; align-items: center; gap: 20px; }
+
+.nav__brand {
+  display: inline-grid;
+  align-items: center;
+  justify-self: start;
+  /* Keeps each of the two mark images at its own width. The pair are drawn to
+     match but their viewBoxes differ by a unit — 297x298 against 298x298 — so
+     the default stretch would widen the narrower one to the column and skew
+     it. Centring lets both hold their true ratio. */
+  justify-items: center;
+}
+
+/* Two copies of the mark stacked in one grid cell: the resting smiley
+   underneath, the winking one on top at zero opacity, faded in on hover.
+   They are drawn to the same ink box — measured at 297.95 and 297.86 units
+   tall, 0.03% apart — so the swap reads as instant.
+
+   No colour maths, mask or filter: CSS cannot recolour the fills inside an
+   <img>, and masking these failed because their root is width="100%"
+   height="100%", so neither carries an intrinsic size. Two files sidesteps
+   it. */
+.nav__brand-logo {
+  grid-area: 1 / 1;
+  height: clamp(18.42px, 2.412vw, 24.12px);
+  width: auto;
+}
+
+.nav__brand-logo--hover { opacity: 0; }
+
+.nav__brand:hover .nav__brand-logo--hover { opacity: 1; }
+
+.nav__crumb-sep {
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--color-text-subtle);
+  user-select: none;
+}
+
+.nav__crumb-current,
+.nav__crumb-link {
+  font-weight: 700;
+  font-size: 16px;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.nav__crumb-link {
+  transition: color var(--duration-base) var(--ease-out);
+}
+
+.nav__crumb-link:hover,
+.nav__crumb-link:focus-visible {
+  color: var(--color-nav-fg-hover);
+}
+
+/* Narrow viewports squeeze the crumbs against the hamburger; drop the
+   trail so the brand stays readable. */
+@media (max-width: 480px) {
+  .nav__crumb-sep,
+  .nav__crumb-link,
+  .nav__crumb-current { display: none; }
+}
+
+.nav__links,
+.nav__socials {
+  display: none;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav__socials { gap: 1rem; }
+
+.nav__link {
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--color-nav-fg);
+  padding: 0.5rem 0;
+}
+
+.nav__link:hover { color: var(--color-nav-fg-hover); }
+
+.nav__toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+}
+
+.nav__toggle:hover { background: var(--color-surface-hover); }
+
+/* The hamburger is one element drawn three times: the span plus its ::before
+   and ::after. Opening rotates the two pseudos into an X. */
+.nav__toggle .icon-bar,
+.nav__toggle .icon-bar::before,
+.nav__toggle .icon-bar::after {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--color-text-strong);
+  transition: transform var(--duration-base) var(--ease-out),
+              opacity var(--duration-base) var(--ease-out);
+}
+
+.nav__toggle .icon-bar { position: relative; }
+
+.nav__toggle .icon-bar::before,
+.nav__toggle .icon-bar::after {
+  content: "";
+  position: absolute;
+  left: 0;
+}
+
+.nav__toggle .icon-bar::before { top: -7px; }
+.nav__toggle .icon-bar::after  { top: 7px; }
+
+.nav[data-open="true"] .nav__toggle .icon-bar { background: transparent; }
+
+.nav[data-open="true"] .nav__toggle .icon-bar::before {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.nav[data-open="true"] .nav__toggle .icon-bar::after {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.nav__langs {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.nav__langs--drawer {
+  margin: 0.75rem 0 0;
+  padding: 0.5rem 0 0;
+}
+
+.nav__lang {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--color-nav-fg);
+  padding: 4px 6px;
+  transition: color var(--duration-base) var(--ease-out);
+}
+
+.nav__lang:hover { color: var(--color-nav-fg-hover); }
+
+.nav__lang[aria-pressed="true"] { color: var(--color-accent); }
+
+.nav__lang-divider {
+  color: var(--color-text-subtle);
+  font-size: 14px;
+  user-select: none;
+}
+
+.nav__drawer {
+  display: none;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem var(--container-padding) 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(10, 10, 10, 0.95);
+}
+
+.nav__drawer .nav__link {
+  padding: 0.875rem 0;
+  font-size: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.nav__drawer .nav__socials { display: flex; margin-top: 0.75rem; }
+
+.nav[data-open="true"] .nav__drawer { display: flex; }
+
+@media (min-width: 900px) {
+  .nav__links   { display: flex; }
+  .nav__socials { display: flex; }
+  .nav__langs   { display: inline-flex; }
+  .nav__toggle  { display: none; }
+  .nav__drawer  { display: none; }
+}
+
+@media (max-width: 899px) {
+  /* Hide the desktop language switcher; the drawer keeps its own. */
+  .nav__right .nav__langs { display: none; }
+}
+
+/* ---------- Social icons ----------
+   The real profile URLs do not exist yet, so those links are marked
+   aria-disabled and hold the destination in data-href — an <a> without href
+   cannot be activated or focused. These rules are the visual cue only. */
+.social {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  color: var(--color-text-strong);
+  transition:
+    color var(--duration-base) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out);
+}
+
+.social svg { width: 20px; height: 20px; }
+
+.social:not([aria-disabled="true"]):hover { color: var(--color-accent); }
+
+.social:not([aria-disabled="true"]):active { transform: scale(0.95); }
+
+.social[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.nav .social { color: var(--color-nav-fg); }
+
+.nav .social:not([aria-disabled="true"]):hover { color: var(--color-nav-fg-hover); }
+
+/* A row of them, laid out outside the nav. */
+.socials-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+  padding: 1rem var(--container-padding);
+  text-align: center;
+}
+
+.site-footer__copyright {
+  font-size: var(--fs-caption);
+  color: var(--color-text-subtle);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* ---------- Back-to-top ---------- */
+.back-to-top {
+  position: fixed;
+  right: clamp(1rem, 3vw, 2rem);
+  bottom: clamp(1rem, 3vw, 2rem);
+  z-index: var(--z-nav);
+  width: var(--control-height);
+  height: var(--control-height);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+  transition:
+    opacity var(--duration-base) var(--ease-out),
+    transform var(--duration-base) var(--ease-out),
+    background-color var(--duration-base) var(--ease-out);
+}
+
+.back-to-top[data-visible="true"] {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.back-to-top:hover { background: var(--color-cream); }
+
+.back-to-top svg { width: 22px; height: 22px; }

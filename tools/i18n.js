@@ -25,26 +25,21 @@ const ATTRS = [
 ];
 
 // Each page loads the shared dictionary plus one of its own. The reference-case
-// templates are kept in the list so their chrome stays in sync, but they are
-// exempt from the key scan: their prose keys carry a literal <slug> that the
-// person copying the file fills in.
-const pages = [];
-for (const dir of [".", "1996"]) {
-  pages.push([`${dir}/index.html`, dir, "landing.js"]);
-  pages.push([`${dir}/consulting.html`, dir, "consulting.js"]);
-  pages.push([`${dir}/studio.html`, dir, "studio.js"]);
-  pages.push([`${dir}/reference-cases/template.html`, dir, "consulting.js", "template"]);
-  for (const slug of ["avarn", "bufab", "epiroc", "kopparbergs-brewery", "ske-kraft", "sectra"]) {
-    pages.push([`${dir}/reference-cases/johnny-vigersten/${slug}.html`, dir, `johnny-vigersten/${slug}.js`]);
-  }
+// template is kept in the list so its chrome stays in sync, but it is exempt
+// from the key scan: its prose keys carry a literal <slug> that the person
+// copying the file fills in.
+const pages = [["index.html", "consulting.js"]];
+for (const slug of ["avarn", "bufab", "epiroc", "kopparbergs-brewery", "ske-kraft", "sectra"]) {
+  pages.push([`reference-cases/johnny-vigersten/${slug}.html`, `johnny-vigersten/${slug}.js`]);
 }
+pages.push(["reference-cases/template.html", "consulting.js", "template"]);
 
-function dictionaries(dir, page) {
+function dictionaries(page) {
   // The translation files assign onto `window`, so give them one.
   global.window = {};
   const paths = [
-    path.join(ROOT, dir, "js/translations/common.js"),
-    path.join(ROOT, dir, "js/translations", page),
+    path.join(ROOT, "js/translations/common.js"),
+    path.join(ROOT, "js/translations", page),
   ].filter(fs.existsSync);
   for (const p of paths) require(p);
   const dict = global.window.TF_TRANSLATIONS;
@@ -66,10 +61,10 @@ const FALLBACK = /(<(\w+)(?=[\s>])[^<>]*\sdata-i18n="([^"]+)"[^<>]*>)([^<]*)(<\/
 const mode = process.argv[2] || "check";
 let problems = 0, synced = 0, touched = 0;
 
-for (const [file, dir, own, kind] of pages) {
+for (const [file, own, kind] of pages) {
   const full = path.join(ROOT, file);
   if (!fs.existsSync(full)) continue;
-  const dict = dictionaries(dir, own);
+  const dict = dictionaries(own);
   const source = fs.readFileSync(full, "utf8");
   const html = stripComments(source);
 

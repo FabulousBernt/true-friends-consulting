@@ -29,11 +29,12 @@ const files = walk(root);
    <filename> — which are not references and cannot resolve. It is linked from
    nowhere and served to nobody. */
 const html = files.filter(f => f.endsWith('.html') && path.basename(f) !== 'template.html');
+// Scanned for references but not for broken ones, since it is a scaffold.
+const template = files.filter(f => path.basename(f) === 'template.html');
 
-/* HTML comments are stripped before scanning. The reference-case pages carry
-   instructional blocks showing how to add a new case, full of placeholders
-   like `<slug>` and `src="..."`. Those are documentation, not references, and
-   scanning them reports 30 broken links in a repo that is entirely intact. */
+/* HTML comments are stripped before scanning. The pages carry short notes about
+   how to add a case, and a scan that read them would report broken links in a
+   repo that is entirely intact. */
 const strip = src => src.replace(/<!--[\s\S]*?-->/g, '');
 const idsOf = f => new Set(
   [...strip(fs.readFileSync(f, 'utf8')).matchAll(/\bid="([^"]+)"/g)].map(m => m[1])
@@ -87,6 +88,66 @@ for (const f of files.filter(f => f.includes(path.sep + 'translations' + path.se
     checked++;
     if (!fs.existsSync(abs)) report(f, m[1], 'referenced from translation data');
   }
+}
+
+/* url() in CSS. The hero photos moved out of CSS and into img srcset, so very
+   little is left, but a url() the stylesheet asks for and the file does not
+   supply still costs a 404 and an unstyled hero. Scanning CSS is what would
+   have caught the three missing image references the markup scan missed. */
+for (const f of files.filter(f => f.endsWith('.css'))) {
+  const src = fs.readFileSync(f, 'utf8');
+  for (const m of src.matchAll(/url\(\s*["']?([^"')]+)["']?\s*\)/g)) {
+    const ref = m[1];
+    if (/^(https?:|data:|#)/.test(ref)) continue;
+    const abs = path.resolve(path.dirname(f), ref.split('?')[0]);
+    checked++;
+    if (!fs.existsSync(abs)) report(f, ref, 'referenced from CSS');
+  }
+}
+
+/* Every file in the tree that nothing points at. An image dropped in and
+   never linked is not an error, but it is dead weight on a static site, and
+   after a rename it is the usual way one gets left behind. */
+const linked = new Set();
+const addRef = (from, ref) => {
+  if (!ref || /^(mailto:|tel:|data:|#|\/\/)/.test(ref)) return;
+  // A same-origin absolute URL still names a file in this tree. The leading
+  // slash has to go, or path.resolve reads it as the filesystem root.
+  const rel = ref.replace(/^https?:\/\/[^/]+/, '').replace(/^\/+/, '');
+  if (!rel) return;
+  linked.add(path.resolve(path.dirname(from), rel.split('#')[0].split('?')[0]));
+};
+
+for (const f of [...html, ...template]) {
+  const src = strip(fs.readFileSync(f, 'utf8'));
+  for (const m of src.matchAll(/(?<![-\w])(?:href|src)="([^"]+)"/g)) addRef(f, m[1]);
+  for (const m of src.matchAll(/(?:srcset|imagesrcset)="([^"]+)"/g)) {
+    for (const cand of m[1].split(',')) addRef(f, cand.trim().split(/\s+/)[0]);
+  }
+  // OG and other absolute meta URLs — og:image points at a real file here.
+  for (const m of src.matchAll(/content="(https?:\/\/[^"]+)"/g)) addRef(f, m[1]);
+}
+
+// Paths held in translation data, which the markup scan above never sees.
+for (const f of files.filter(f => f.includes(path.sep + 'translations' + path.sep))) {
+  for (const m of fs.readFileSync(f, 'utf8').matchAll(/"((?:img|css|js|cv)\/[^"]+)"/g)) {
+    linked.add(path.resolve(root, m[1]));
+  }
+}
+
+const unreferenced = [];
+for (const f of files) {
+  const rel = path.relative(root, f);
+  // Host config, source, and the tooling itself are not site assets.
+  if (rel.startsWith('.') || rel === 'CNAME') continue;
+  if (/\.(md|txt|xml|js)$/.test(f) || rel.startsWith('tools' + path.sep)) continue;
+  if (rel.startsWith('reference-cases' + path.sep) && rel.endsWith('template.html')) continue;
+  if (!linked.has(f) && !/\.(html|css)$/.test(f)) unreferenced.push(rel);
+}
+
+if (unreferenced.length) {
+  console.log('\nnot referenced by any page (candidates for deletion):');
+  for (const rel of unreferenced) console.log('  ' + rel);
 }
 
 console.log('\n' + checked + ' references checked, ' + broken + ' broken');
