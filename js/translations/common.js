@@ -37,7 +37,7 @@ window.TF_TRANSLATIONS = {
          is a different file rather than a different string. Studio needs no
          equivalent — the word is identical in both languages, so one file
          serves both. */
-      consultingMark: "img/tf-archivo-consulting-yellow-transparent.svg",
+      consultingMark: "img/tf-archivo-consulting-chrome-transparent.svg",
     },
     refCase: {
       about: "About",
@@ -114,7 +114,7 @@ window.TF_TRANSLATIONS = {
       cta: "Säg hej",
       consulting: "Konsult",
       studio: "Studio",
-      consultingMark: "img/tf-archivo-konsult-yellow-transparent.svg",
+      consultingMark: "img/tf-archivo-konsult-chrome-transparent.svg",
     },
     refCase: {
       about: "Om uppdraget",

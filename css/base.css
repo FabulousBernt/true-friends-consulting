@@ -423,34 +423,35 @@ body:has(.hero--blog) .nav {
 .nav__right  { grid-column: 3; justify-self: end; display: flex; align-items: center; gap: 20px; }
 
 .nav__brand {
-  display: inline-grid;
+  display: inline-flex;
   align-items: center;
   justify-self: start;
-  /* Keeps each of the two mark images at its own width. The pair are drawn to
-     match but their viewBoxes differ by a unit — 297x298 against 298x298 — so
-     the default stretch would widen the narrower one to the column and skew
-     it. Centring lets both hold their true ratio. */
-  justify-items: center;
 }
 
-/* Two copies of the mark stacked in one grid cell: the resting smiley
-   underneath, the winking one on top at zero opacity, faded in on hover.
-   They are drawn to the same ink box — measured at 297.95 and 297.86 units
-   tall, 0.03% apart — so the swap reads as instant.
+/* The chrome smiley — the landing's hero mark, reduced to the navbar. It is a
+   bitmap because that is the only cut of it there is; the two SVG drawings it
+   replaces were vector, so this is the one mark on the site that is not.
 
-   No colour maths, mask or filter: CSS cannot recolour the fills inside an
-   <img>, and masking these failed because their root is width="100%"
-   height="100%", so neither carries an intrinsic size. Two files sidesteps
-   it. */
+   The clamp is the one the square mark used, unchanged. The sphere is 96% of
+   the artwork's height and it is the orbital rings that make the file 2.17:1,
+   so holding the same height holds the face the size it was and only the box
+   gets wider. Sized by width instead it would have shrunk the face by half.
+
+   Hover is a plain opacity fade. The old effect faded in a second drawing, a
+   winking face; there is no second cut of this artwork and nothing to draw one
+   from that would register against a rendered chrome ball with its own
+   shading. Fading the mark itself still says what the swap said — that this is
+   a link and it has noticed the pointer.
+
+   --duration-fast is 0ms under prefers-reduced-motion, so the fade collapses
+   along with the rest of the site's transitions. */
 .nav__brand-logo {
-  grid-area: 1 / 1;
   height: clamp(18.42px, 2.412vw, 24.12px);
   width: auto;
+  transition: opacity var(--duration-fast) var(--ease-out);
 }
 
-.nav__brand-logo--hover { opacity: 0; }
-
-.nav__brand:hover .nav__brand-logo--hover { opacity: 1; }
+.nav__brand:hover .nav__brand-logo { opacity: 0.72; }
 
 .nav__crumb-sep {
   font-weight: 700;

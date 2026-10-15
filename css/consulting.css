@@ -621,25 +621,16 @@ body:has(dialog[open]) { overflow: hidden; }
 }
 
 .hero__mark {
-  --mark-offset: clamp(2px, 0.4vw, 5px);
   margin: 0;
   width: 100%;
 }
 
-/* A flame offset behind the mark, standing in for the misregistration of a
-   cheap two-colour screen print. drop-shadow follows the glyph outline rather
-   than the box, so the flame hugs the letterforms the way a second screen pass
-   would. Two stacked shadows: flame first, then a tight black bite to stop the
-   red vibrating against the yellow. Offsets are viewport-scaled px, not em —
-   this is an <h1>, and an em offset would key off the inherited heading size
-   rather than the artwork.
-
-   The offset lives on the image, not the heading, because on a case page the
-   heading holds the client logo and that reads better flat. */
+/* The wordmark is drawn artwork filled with a chrome gradient, so it carries
+   its own shading and needs no offset colour behind it. A single soft dark
+   drop-shadow keeps the letterforms off the hero photo where the metal's dark
+   band meets a dark patch of the image; it is not a second colour pass. */
 .hero__mark img {
-  filter:
-    drop-shadow(var(--mark-offset) var(--mark-offset) 0 var(--color-flame))
-    drop-shadow(1px 1px 0 rgba(10, 10, 10, 0.55));
+  filter: drop-shadow(0 2px 6px rgba(10, 10, 10, 0.5));
 }
 
 /* max-width and object-fit are insurance, not the mechanism: the height clamp

@@ -8,9 +8,12 @@ the moment of the split.
 css/base.css
 js/lang-boot.js  js/translations/common.js
 img/tf-pc-logo-transparent.svg
-img/studio-navbar-smiley-noborder.svg  img/studio-navbar-smiley-back-noborder.svg
 img/favicon.svg
 ```
+
+`img/studio-navbar-smiley-noborder.svg` and
+`img/studio-navbar-smiley-back-noborder.svg` were part of that set too, and have
+since been deleted here — see the note further down.
 
 They keep their normal paths rather than moving into this folder — moving them
 would break every relative reference on every page for no benefit. This file is
@@ -35,10 +38,24 @@ three different-looking sites read as one brand.
 
 `js/translations/common.js` is not purely common. It carries
 `hero.consultingMark`, which resolves to
-`img/tf-archivo-consulting-yellow-transparent.svg` in English and
-`img/tf-archivo-konsult-yellow-transparent.svg` in Swedish — that is how the
+`img/tf-archivo-consulting-chrome-transparent.svg` in English and
+`img/tf-archivo-konsult-chrome-transparent.svg` in Swedish — that is how the
 consulting wordmark gets its Swedish variant. Those two keys are meaningful
 here and dead weight in the other two repositories.
+
+## One asset that came from the landing
+
+`img/tf-smiley-chrome-transparent.webp` is not from the split. It is the landing's
+hero mark — the artwork its whole lockup hangs under — and it was copied here in
+October 2026 to stand in for the navbar smiley. Studio took the same copy the
+same day, for the same slot, so it now lives in all three repositories and is
+umbrella artwork like the rest: change it everywhere or nowhere, or the sites
+stop showing the same face.
+
+It is also the one mark on any of the three sites that is a bitmap. It arrived as
+a rendered cut with no vector source, which is why the navbar's usual trick of
+swapping between two drawings is gone here: there is no second cut to swap to.
+The hover state is a fade on the one file.
 
 ## Two rules worth knowing before you redesign
 
@@ -76,6 +93,12 @@ The navbar no longer uses this mark. It was replaced by the two smiley files,
 `studio-navbar-smiley-back-noborder.svg` for hover — two separate drawings,
 not two colourways, both filled with the accent yellow. The all-yellow
 variant was dropped with it, leaving no yellow cut of the wordmark.
+
+Those two files were deleted from this repository in October 2026, when the
+navbar moved to the chrome smiley described above. Studio keeps its own copies
+and still uses them, so they remain the umbrella navbar mark there — but nothing
+here loads them, and a rebase or a copy across repositories will not bring them
+back.
 
 `tf-pc-logo-transparent.svg` stays for the hero's client-logo slot in
 `reference-cases/template.html`, where it stands in for a client's mark.
