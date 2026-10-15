@@ -30,9 +30,11 @@ window.TF_ADD_TRANSLATIONS({
     team: {
       label: "Consultants",
       cv: "Download cv",
+      availability: "Availability",
       members: {
         johnny: {
           role: "Tester / UX/UI Designer",
+          availability: "Part-time",
           bio: "I like exploring and investigating software and solving problems for customers. I advocate usability, security and aesthetics.",
           cvHref: "cv/johnny-vigersten-cv-EN.pdf",
         },
@@ -80,9 +82,11 @@ window.TF_ADD_TRANSLATIONS({
     team: {
       label: "Konsulter",
       cv: "Ladda ner CV",
+      availability: "Tillgänglighet",
       members: {
         johnny: {
           role: "Testare / Designer",
+          availability: "Deltid",
           bio: "Jag tycker om att utforska och undersöka mjukvara samt att lösa problem åt mina kunder. Jag förespråkar användbarhet, säkerhet och estetik.",
           cvHref: "cv/johnny-vigersten-cv-SE.pdf",
         },

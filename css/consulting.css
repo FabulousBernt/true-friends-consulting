@@ -293,6 +293,15 @@ body:has(dialog[open]) { overflow: hidden; }
 }
 
 .consultant-card {
+  /* Availability green. Scoped here rather than added to base.css: the tokens
+     there are the shared brand umbrella and are kept in step across the three
+     sibling repos by hand, and this is the only green on the site. It sits
+     beside the brand yellow as a warm, yellow-leaning green rather than a
+     cold one, so it reads as a sibling of the accent instead of a new brand
+     colour. */
+  --color-availability: #a3d14a;
+  --color-availability-glow: rgba(163, 209, 74, 0.45);
+
   display: grid;
   grid-template-columns: 1fr;
   gap: clamp(1.25rem, 2.5vw, 2rem);
@@ -308,12 +317,29 @@ body:has(dialog[open]) { overflow: hidden; }
   }
 }
 
+/* The portrait is its own stacking context: the scrim and the badge are both
+   absolutely positioned, and isolating them here keeps the badge's z-index from
+   escaping into the page and landing above things it has no business being
+   above. */
 .consultant-card__portrait {
   position: relative;
+  isolation: isolate;
   aspect-ratio: 4 / 5;
   overflow: hidden;
   border: 1px solid var(--color-border);
   background: var(--color-surface);
+}
+
+/* Scrim under the bottom of the photo, so the availability badge is legible on
+   any image rather than only where the photo happens to be dark. The badge's
+   own tint plus this lands around three-quarters opacity behind the label. */
+.consultant-card__portrait::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 35%;
+  background: linear-gradient(to top, var(--color-glass-tint), transparent);
+  pointer-events: none;
 }
 
 .consultant-card__portrait img {
@@ -357,6 +383,71 @@ body:has(dialog[open]) { overflow: hidden; }
   color: var(--color-cream);
   font-weight: 700;
   font-size: 1.25rem;
+}
+
+/* Availability: a status light on the corner of the portrait, not a filled
+   chip in the meta <dl>, since a chip is the one value there that isn't a
+   string. The label rides above the value rather than in front of it: on the
+   desktop card the portrait is capped at 220px, and "availability: part-time"
+   on one line overruns that — in Swedish, which is longer, before English. */
+.consultant-card__badge {
+  position: absolute;
+  bottom: 0.75rem;
+  left: 0.75rem;
+  /* The scrim is a later sibling, so it would paint over the badge; a positive
+     z-index lifts the badge past it, and the portrait's isolation keeps it
+     there. */
+  z-index: 1;
+
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  column-gap: 0.5rem;
+  row-gap: 0.1rem;
+  padding: 0.35rem 0.6rem;
+  /* The dark tint, not the chrome bar's highlight wash: the highlight is too
+     thin to carry cream type over arbitrary photo pixels. */
+  background: var(--color-glass-tint);
+  border: 1px solid var(--color-border);
+  -webkit-backdrop-filter: var(--blur-glass);
+          backdrop-filter: var(--blur-glass);
+}
+
+/* The status rail: a vertical bar on the left edge spanning both lines, so the
+   colour reads as the status of the whole readout rather than of one line. Its
+   halo stands in for the glow a real indicator throws. Nothing pulses. A card
+   that blinks has stopped informing and started advertising. */
+.consultant-card__badge::before {
+  content: "";
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  align-self: stretch;
+  width: 0.2rem;
+  background: var(--color-availability);
+  box-shadow: 0 0 0.4rem var(--color-availability-glow);
+}
+
+.consultant-card__badge-label,
+.consultant-card__badge-value {
+  grid-column: 2;
+  line-height: 1.2;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.consultant-card__badge-label {
+  grid-row: 1;
+  font-size: 0.625rem;
+  /* Not --color-text-muted: the scrim exists so the badge reads on any photo,
+     and a translucent label falls below AA wherever the photo behind it is
+     bright. The label is kept quiet by size instead. */
+  color: var(--color-text);
+}
+
+.consultant-card__badge-value {
+  grid-row: 2;
+  font-size: var(--fs-caption);
+  color: var(--color-cream);
 }
 
 /* Reference cases, as a table in the card. Each row is one link; hover and
